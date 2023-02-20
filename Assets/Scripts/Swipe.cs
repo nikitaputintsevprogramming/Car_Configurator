@@ -6,8 +6,10 @@ public class Swipe : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     public Transform target;
     public Camera cam;
 
-    public float currentRotate;
-    public float sensitivity = 0.1f;
+    public float currentRotateX;
+    // public float currentRotateY;
+    public float currentZoom;
+    public float sensitivitySwipe = 0.1f;    
     private Vector2 deltaValue = Vector2.zero;
 
     private void Start() 
@@ -18,11 +20,13 @@ public class Swipe : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
     private void Update()
     {
-        currentRotate = deltaValue.x;
+        currentRotateX = deltaValue.x;
+        // currentRotateY = deltaValue.y;
 
-        // поворот вокруг игрока
-        cam.transform.RotateAround(target.position, Vector3.up, currentRotate * sensitivity * Time.deltaTime); 
-        print(deltaValue.x);        
+        // Rotate
+        cam.transform.RotateAround(target.position, Vector3.up, currentRotateX * sensitivitySwipe * Time.deltaTime); 
+        // cam.transform.RotateAround(target.position, Vector3.right, currentRotateX * sensitivitySwipe * Time.deltaTime); 
+             
     }
 
     public void OnBeginDrag(PointerEventData data)
