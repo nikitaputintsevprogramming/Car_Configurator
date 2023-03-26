@@ -5,8 +5,8 @@ public class DoorRController : MonoBehaviour, IPointerClickHandler
 {  
     public bool OpenR;
 
-    public void OnPointerClick(PointerEventData data)
-    {
+    public void OnPointerClick(PointerEventData data)    
+    {        
         if(OpenR)
         {
             CloseDoorR();

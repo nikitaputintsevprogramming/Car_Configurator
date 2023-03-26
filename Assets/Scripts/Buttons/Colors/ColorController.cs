@@ -5,7 +5,7 @@ public class ColorController : MonoBehaviour
 {   
     public GameObject target;
 
-    public Material[] ColorsResources;
+    // public Material[] ColorsResources;
 
     public int TargetBodyChildObjects = 3;
 
@@ -13,7 +13,7 @@ public class ColorController : MonoBehaviour
     private void Start()
     {
         // CarMaterial = target.transform.GetChild(0).GetComponent<MeshRenderer>().material;
-        ColorsResources = Resources.LoadAll<Material>("Materials");
+        // ColorsResources = Resources.LoadAll<Material>("Materials");
     }
     
     public void SetColor(string HexColorCode)
