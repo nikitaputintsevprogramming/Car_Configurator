@@ -28,6 +28,8 @@ public class SwipeZoom : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     private void Start()
     {
         cam = Camera.main;
+        currentZoom = maxZoom;
+        cam.transform.position = target.position - offset * currentZoom;
     }
 
     private void Update()
