@@ -1,29 +1,21 @@
 using UnityEngine;
-using UnityEditor;
 
-public class ColorController : MonoBehaviour
-{   
-    public GameObject target;
+namespace Buttons.Colors
+{
+    public class ColorController : MonoBehaviour
+    {   
+        public GameObject target;
 
-    // public Material[] ColorsResources;
-
-    public int TargetBodyChildObjects = 3;
-
-
-    private void Start()
-    {
-        // CarMaterial = target.transform.GetChild(0).GetComponent<MeshRenderer>().material;
-        // ColorsResources = Resources.LoadAll<Material>("Materials");
-    }
+        public int targetBodyChildObjects = 3;
     
-    public void SetColor(string HexColorCode)
-    {
-        Color color;
-        ColorUtility.TryParseHtmlString(HexColorCode, out color);
-
-        for (int countChildObjects = 0; countChildObjects < TargetBodyChildObjects; countChildObjects++)
+        public void SetColor(string hexColorCode)
         {
-            target.transform.GetChild(countChildObjects).GetComponent<MeshRenderer>().material.color = color;
-        }
-    }   
+            ColorUtility.TryParseHtmlString(hexColorCode, out var color);
+        
+            for (var countChildObjects = 0; countChildObjects < targetBodyChildObjects; countChildObjects++)
+            {
+                target.transform.GetChild(countChildObjects).GetComponent<MeshRenderer>().material.color = color;
+            }
+        }   
+    }
 }

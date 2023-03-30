@@ -1,24 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationController : MonoBehaviour
+namespace Buttons.Movement
 {
-    public GameObject TankTarget;
-    public Animator TankAnimator;
+    public class AnimationController : MonoBehaviour
+    {
+        public GameObject tankTarget;
+        public Animator tankAnimator;
 
-    void Start()
-    {
-        TankAnimator = TankTarget.GetComponent<Animator>();
-    }
-    
-    void Update()
-    {
-        
-    }
+        private void Start()
+        {
+            tankAnimator = tankTarget.GetComponent<Animator>();
+        }
 
-    public void PlayAnimation(string nameTriggerAnimation)
-    {
-        TankAnimator.SetTrigger(nameTriggerAnimation);
+        public void PlayAnimation(string nameTriggerAnimation)
+        {
+            tankAnimator.SetTrigger(nameTriggerAnimation);
+        }
     }
 }

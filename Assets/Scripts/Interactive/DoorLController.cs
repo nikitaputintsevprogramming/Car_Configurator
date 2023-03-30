@@ -1,32 +1,34 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DoorLController : MonoBehaviour, IPointerClickHandler
-{  
-    public bool OpenL;
+namespace Interactive
+{
+    public class DoorLController : MonoBehaviour, IPointerClickHandler
+    {  
+        public bool openL;
 
-    public void OnPointerClick(PointerEventData data)
-    {
-        if(OpenL)
+        public void OnPointerClick(PointerEventData data)
         {
-            CloseDoorL();
+            if(openL)
+            {
+                CloseDoorL();
+            }
+            else 
+            {
+                OpenDoorL();
+            }
         }
-        else 
+
+        private void OpenDoorL()
         {
-            OpenDoorL();
+            gameObject.transform.Rotate(0, 50, 0);
+            openL = true;
         }
-    }
 
-    public void OpenDoorL()
-    {
-        gameObject.transform.Rotate(0, 50, 0);
-        OpenL = true;
-    }  
-
-   
-    public void CloseDoorL()
-    {
-        gameObject.transform.Rotate(0, -50, 0);
-        OpenL = false;
+        private void CloseDoorL()
+        {
+            gameObject.transform.Rotate(0, -50, 0);
+            openL = false;
+        }
     }
 }
