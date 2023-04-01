@@ -23,8 +23,9 @@ namespace Interactive
 
         // swipe start
         public float yawSpeed = 100f;
-        public float currentYaw;
-        public float currentRotateX;
+        public float currentYawUp;
+        public float currentYawRight;
+        // public float currentRotateX;
         public float sensitivitySwipe = 0.1f;
         
         private Vector2 _deltaValue = Vector2.zero;
@@ -75,7 +76,8 @@ namespace Interactive
             }
 
             // обработка поворота камеры вокруг игрока
-            currentYaw -= _deltaValue.x * yawSpeed * Time.deltaTime;
+            currentYawUp -= _deltaValue.x * yawSpeed * Time.deltaTime;
+            // currentYawRight -= _deltaValue.y * yawSpeed * Time.deltaTime;
         }
 
         private void LateUpdate()
@@ -85,9 +87,11 @@ namespace Interactive
             cam.transform.position = position - offset * currentZoom;
             // смотрим на игрока 
             cam.transform.LookAt(position + Vector3.up * pitch);
+            cam.transform.LookAt(position + Vector3.right * pitch);
 
             // поворот вокруг игрока
-            cam.transform.RotateAround(position, Vector3.up, currentYaw * sensitivitySwipe);
+            cam.transform.RotateAround(position, Vector3.up, currentYawUp * sensitivitySwipe);
+            // cam.transform.RotateAround(position, Vector3.right, currentYawRight * sensitivitySwipe);
         }
 
         public void OnBeginDrag(PointerEventData data)
@@ -107,6 +111,14 @@ namespace Interactive
         public void OnEndDrag(PointerEventData data)
         {
             _deltaValue = Vector2.zero;
+        }
+    
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(target.transform.position, minZoom);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(target.transform.position, maxZoom);
         }
     }
 }

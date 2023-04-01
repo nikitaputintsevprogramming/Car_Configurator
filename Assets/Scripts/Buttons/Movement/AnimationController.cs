@@ -7,8 +7,6 @@ namespace Buttons.Movement
         public GameObject tankTarget;
         public Animator tankAnimator;
 
-        public string currentAnimation;
-
         private void Start()
         {
             tankAnimator = tankTarget.GetComponent<Animator>();
@@ -16,13 +14,10 @@ namespace Buttons.Movement
 
         public void PlayAnimation(string nameTriggerAnimation)
         {
-            if(!tankAnimator.GetCurrentAnimatorStateInfo(0).IsName("StayCalm"))
+            if(tankAnimator.GetCurrentAnimatorStateInfo(0).IsName("StayCalm"))
             {
-                return;
+                tankAnimator.SetTrigger(nameTriggerAnimation);
             }
-
-            tankAnimator.SetTrigger(nameTriggerAnimation);
-            
         }
     }
 }
