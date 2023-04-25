@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Polygon_Shooter.unity
+    guid: 1ec525de709443a4494312810af17ed6
   m_configObjects: {}

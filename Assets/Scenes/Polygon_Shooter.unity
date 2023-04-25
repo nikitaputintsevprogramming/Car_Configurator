@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.2163818, g: 0.23328234, b: 0.24599598, a: 1}
+  m_IndirectSpecularColor: {r: 0.21508716, g: 0.23324691, b: 0.24570939, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2842,14 +2842,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2042413807}
-  m_LocalRotation: {x: 0.1919658, y: -0, z: -0, w: 0.9814016}
-  m_LocalPosition: {x: 0, y: 8.1, z: -15.86}
+  m_LocalRotation: {x: 0.05244751, y: 0.94406277, z: -0.18466221, w: 0.26813173}
+  m_LocalPosition: {x: -6.5625305, y: 6.08726, z: 12.036544}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 22.135, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 22.135, y: 148.289, z: 0}
 --- !u!114 &2042413812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2895,13 +2895,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1176121589939984423}
-  distance: 10
-  xSpeed: 10
+  distance: 5
+  xSpeed: 4
   ySpeed: 10
-  yMinLimit: 5
+  yMinLimit: -20
   yMaxLimit: 80
-  distanceMin: 10
-  distanceMax: 20
+  distanceMin: 15
+  distanceMax: 30
   smoothTime: 0.2
   zoomSpeed: 0.5
 --- !u!1 &2087428108
