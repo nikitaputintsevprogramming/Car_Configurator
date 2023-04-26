@@ -2896,14 +2896,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1176121589939984423}
   distance: 5
-  xSpeed: 4
-  ySpeed: 10
-  yMinLimit: -20
+  xSpeed: 0.8
+  ySpeed: 0.8
+  DesktopSpeedDelta: 50
+  yMinLimit: 20
   yMaxLimit: 80
   distanceMin: 15
   distanceMax: 30
   smoothTime: 0.2
-  zoomSpeed: 0.5
+  zoomSpeed: 0.2
 --- !u!1 &2087428108
 GameObject:
   m_ObjectHideFlags: 0

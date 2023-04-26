@@ -8,14 +8,15 @@ public class CameraController : MonoBehaviour
 {
     public Transform target;
     public float distance = 10f;
-    public float xSpeed = 120f;
-    public float ySpeed = 120f;
-    public float yMinLimit = -20f;
+    public float xSpeed = 0.8f;
+    public float ySpeed = 0.8f;
+    public float DesktopSpeedDelta = 50f;
+    public float yMinLimit = 20f;
     public float yMaxLimit = 80f;
-    public float distanceMin = 0.5f;
-    public float distanceMax = 15f;
+    public float distanceMin = 15f;
+    public float distanceMax = 30f;
     public float smoothTime = 0.2f;
-    public float zoomSpeed = 5f;
+    public float zoomSpeed = 0.2f;
 
     private float x = 0f;
     private float y = 0f;
@@ -33,7 +34,7 @@ public class CameraController : MonoBehaviour
         targetDistance = distanceMax;
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         if (target)
         {
@@ -43,18 +44,18 @@ public class CameraController : MonoBehaviour
 
             if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Moved)
             {
-                x += Input.GetTouch(0).deltaPosition.x;
-                y -= Input.GetTouch(0).deltaPosition.y;
+                x += Input.GetTouch(0).deltaPosition.x * Time.deltaTime * xSpeed;
+                y -= Input.GetTouch(0).deltaPosition.y * Time.deltaTime * ySpeed;
                 y = ClampAngle(y, yMinLimit, yMaxLimit);
             }
             else if (Input.GetMouseButton(0))         
             {             
                 // вычисляем новый угол по горизонтали
-                x += horizontalInput * xSpeed;
+                x += horizontalInput * Time.deltaTime * xSpeed * DesktopSpeedDelta;
 
                 // вычисляем новый угол по вертикали
-                y -= verticalInput * Time.deltaTime * ySpeed;
-                y = Mathf.Clamp(y, -yMinLimit, yMaxLimit);
+                y -= verticalInput * Time.deltaTime * ySpeed * DesktopSpeedDelta;
+                y = ClampAngle(y, yMinLimit, yMaxLimit);
             }                        
             
             if (Input.touchCount == 2)
@@ -70,14 +71,14 @@ public class CameraController : MonoBehaviour
 
                 float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
 
-                targetDistance += deltaMagnitudeDiff * zoomSpeed;
+                targetDistance += deltaMagnitudeDiff * zoomSpeed * Time.deltaTime;
                 targetDistance = Mathf.Clamp(targetDistance, distanceMin, distanceMax);
             }
            
             else if(zoomInput != 0)
             {                
                 // вычисляем новое расстояние
-                targetDistance += -zoomInput * zoomSpeed * 100f;
+                targetDistance += -zoomInput * zoomSpeed * Time.deltaTime * DesktopSpeedDelta;
                 targetDistance = Mathf.Clamp(targetDistance, distanceMin, distanceMax);
             }
 
