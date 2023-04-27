@@ -28,6 +28,7 @@ namespace Buttons.Movement
             }
             else
             {
+                NoAnimationNow = false;
                 CanvasPumps.SetActive(false);
             }
         }
