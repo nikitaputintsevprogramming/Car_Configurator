@@ -15,8 +15,8 @@ namespace Buttons.Colors
             AllChildMeshRenderer = target.GetComponentsInChildren<MeshRenderer>();
 
             for (int count = 0; count < AllChildMeshRenderer.Length; count++)
-            {
-                AllChildMeshRenderer[count].material.color = color;
+            {                
+                AllChildMeshRenderer[count].material.color = color;                          
             }
 
             // for (var countChildObjects = 0; countChildObjects < target.transform.childCount; countChildObjects++)

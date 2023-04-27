@@ -1,11 +1,15 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Buttons.Movement
 {
     public class AnimationController : MonoBehaviour
-    {
+    {       
+        public Sprite[] LightSprites;
+        public GameObject LightButton;        
+
         public GameObject tankTarget;
-        public Animator tankAnimator;
+        public Animator tankAnimator;               
 
         private void Start()
         {
@@ -26,6 +30,14 @@ namespace Buttons.Movement
             for (int count = 0; count < lights.Length; count++)
             {
                 lights[count].enabled = !lights[count].enabled;
+                if(lights[count].enabled)
+                {
+                    LightButton.GetComponent<Image>().sprite = LightSprites[1];
+                }
+                else
+                {
+                    LightButton.GetComponent<Image>().sprite = LightSprites[0];
+                }
             }
             
         }
