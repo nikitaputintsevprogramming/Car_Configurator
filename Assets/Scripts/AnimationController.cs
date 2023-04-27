@@ -6,19 +6,35 @@ namespace Buttons.Movement
     public class AnimationController : MonoBehaviour
     {       
         public Sprite[] LightSprites;
+        public GameObject CanvasPumps;
         public GameObject LightButton;        
 
         public GameObject tankTarget;
-        public Animator tankAnimator;               
+        public Animator tankAnimator;  
+
+        private bool NoAnimationNow = true;            
 
         private void Start()
         {
             tankAnimator = tankTarget.GetComponent<Animator>();
         }
 
-        public void PlayAnimation(string nameTriggerAnimation)
+        private void Update()
         {
             if(tankAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            {
+                NoAnimationNow = true;
+                CanvasPumps.SetActive(true);
+            }
+            else
+            {
+                CanvasPumps.SetActive(false);
+            }
+        }
+
+        public void PlayAnimation(string nameTriggerAnimation)
+        {
+            if(NoAnimationNow)
             {
                 tankAnimator.SetTrigger(nameTriggerAnimation);
             }
