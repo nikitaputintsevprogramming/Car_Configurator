@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class settings : MonoBehaviour
 {
     public GameObject cam;
-    public CameraController _cameraController;    
-    public GameObject PanelSettings;
+    private CameraController _cameraController;  
 
     public List<Slider> sliders = new List<Slider>();
     public List<Text> perTexts = new List<Text>();
