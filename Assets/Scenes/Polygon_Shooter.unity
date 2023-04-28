@@ -4412,7 +4412,7 @@ GameObject:
   - component: {fileID: 1053715109}
   - component: {fileID: 1053715108}
   m_Layer: 5
-  m_Name: ButtonCloseInfo (1)
+  m_Name: ButtonCloseSettings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
