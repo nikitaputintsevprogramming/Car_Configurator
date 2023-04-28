@@ -8,8 +8,7 @@ public class CameraController : MonoBehaviour
 {
     public Transform target;
     public float distance = 10f;
-    public float xSpeed = 0.8f;
-    public float ySpeed = 0.8f;
+    public float sensitivity = 0.8f;
     public float DesktopSpeedDelta = 50f;
     public float yMinLimit = 20f;
     public float yMaxLimit = 80f;
@@ -44,17 +43,17 @@ public class CameraController : MonoBehaviour
 
             if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Moved)
             {
-                x += Input.GetTouch(0).deltaPosition.x * Time.deltaTime * xSpeed;
-                y -= Input.GetTouch(0).deltaPosition.y * Time.deltaTime * ySpeed;
+                x += Input.GetTouch(0).deltaPosition.x * Time.deltaTime * sensitivity;
+                y -= Input.GetTouch(0).deltaPosition.y * Time.deltaTime * sensitivity;
                 y = ClampAngle(y, yMinLimit, yMaxLimit);
             }
             else if (Input.GetMouseButton(0))         
             {             
                 // вычисляем новый угол по горизонтали
-                x += horizontalInput * Time.deltaTime * xSpeed * DesktopSpeedDelta;
+                x += horizontalInput * Time.deltaTime * sensitivity * DesktopSpeedDelta;
 
                 // вычисляем новый угол по вертикали
-                y -= verticalInput * Time.deltaTime * ySpeed * DesktopSpeedDelta;
+                y -= verticalInput * Time.deltaTime * sensitivity * DesktopSpeedDelta;
                 y = ClampAngle(y, yMinLimit, yMaxLimit);
             }                        
             
