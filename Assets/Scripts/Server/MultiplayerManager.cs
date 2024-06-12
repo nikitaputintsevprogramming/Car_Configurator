@@ -46,12 +46,14 @@ namespace HelloWorld
                 {
                     foreach (ulong uid in NetworkManager.Singleton.ConnectedClientsIds)
                         NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(uid).GetComponent<Player>().Move();
+                    Debug.Log("Singleton.IsServer && !NetworkManager.Singleton.IsClient");
                 }
                 else
                 {
                     var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
                     var player = playerObject.GetComponent<Player>();
                     player.Move();
+                    Debug.Log("Move");
                 }
             }
         }

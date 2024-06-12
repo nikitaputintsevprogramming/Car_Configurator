@@ -15,6 +15,8 @@ namespace HelloWorld
             }
         }
 
+
+
         public void Move()
         {
             SubmitPositionRequestServerRpc();
@@ -24,9 +26,13 @@ namespace HelloWorld
         void SubmitPositionRequestServerRpc(RpcParams rpcParams = default)
         {
             var randomPosition = GetRandomPositionOnPlane();
-            transform.position = Vector3.Lerp(transform.position, randomPosition, Time.deltaTime);
+            transform.position = randomPosition;
             Position.Value = randomPosition;
+            Debug.Log("new position");
         }
+
+
+        
 
         static Vector3 GetRandomPositionOnPlane()
         {
@@ -35,7 +41,7 @@ namespace HelloWorld
 
         void Update()
         {
-            transform.position = Vector3.Lerp(transform.position, Position.Value, Time.deltaTime);
+            transform.position = Position.Value;
         }
     }
 }
