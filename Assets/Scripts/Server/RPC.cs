@@ -1,30 +1,33 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class RPC : NetworkBehaviour
+namespace T34
 {
-    public override void OnNetworkSpawn()
+    public class RPC : NetworkBehaviour
     {
-        if (!IsServer && IsOwner) //Only send an RPC to the server on the client that owns the NetworkObject that owns this NetworkBehaviour instance
+        public override void OnNetworkSpawn()
         {
-            TestServerRpc(0, NetworkObjectId);
+            if (!IsServer && IsOwner) //Only send an RPC to the server on the client that owns the NetworkObject that owns this NetworkBehaviour instance
+            {
+                TestServerRpc(0, NetworkObjectId);
+            }
         }
-    }
 
-    [Rpc(SendTo.ClientsAndHost)]
-    void TestClientRpc(int value, ulong sourceNetworkObjectId)
-    {
-        Debug.Log($"Client Received the RPC #{value} on NetworkObject #{sourceNetworkObjectId}");
-        if (IsOwner) //Only send an RPC to the server on the client that owns the NetworkObject that owns this NetworkBehaviour instance
+        [Rpc(SendTo.ClientsAndHost)]
+        void TestClientRpc(int value, ulong sourceNetworkObjectId)
         {
-            TestServerRpc(value + 1, sourceNetworkObjectId);
+            Debug.Log($"Client Received the RPC #{value} on NetworkObject #{sourceNetworkObjectId}");
+            if (IsOwner) //Only send an RPC to the server on the client that owns the NetworkObject that owns this NetworkBehaviour instance
+            {
+                TestServerRpc(value + 1, sourceNetworkObjectId);
+            }
         }
-    }
 
-    [Rpc(SendTo.Server)]
-    void TestServerRpc(int value, ulong sourceNetworkObjectId)
-    {
-        Debug.Log($"Server Received the RPC #{value} on NetworkObject #{sourceNetworkObjectId}");
-        TestClientRpc(value, sourceNetworkObjectId);
+        [Rpc(SendTo.Server)]
+        void TestServerRpc(int value, ulong sourceNetworkObjectId)
+        {
+            Debug.Log($"Server Received the RPC #{value} on NetworkObject #{sourceNetworkObjectId}");
+            TestClientRpc(value, sourceNetworkObjectId);
+        }
     }
 }

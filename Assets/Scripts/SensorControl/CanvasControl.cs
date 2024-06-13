@@ -6,23 +6,26 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class CanvasControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+namespace T34
 {
-    public static event Action<Sprite> OnBeginDragEvent;
-    [SerializeField] private Sprite HistoryModeSprite;
-
-    public void OnBeginDrag(PointerEventData data)
+    public class CanvasControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        OnBeginDragEvent?.Invoke(HistoryModeSprite);
-    }
+        public static event Action<Sprite> OnBeginDragEvent;
+        [SerializeField] private Sprite HistoryModeSprite;
 
-    public void OnDrag(PointerEventData data)
-    {
+        public void OnBeginDrag(PointerEventData data)
+        {
+            OnBeginDragEvent?.Invoke(HistoryModeSprite);
+        }
 
-    }
+        public void OnDrag(PointerEventData data)
+        {
 
-    public void OnEndDrag(PointerEventData data)
-    {
+        }
 
+        public void OnEndDrag(PointerEventData data)
+        {
+
+        }
     }
 }
