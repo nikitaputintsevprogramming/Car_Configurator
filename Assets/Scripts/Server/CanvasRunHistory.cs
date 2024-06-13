@@ -48,8 +48,6 @@ namespace T34
         void CanvasClientOnRpc()
         {
             SetImage(RunAppSprite);
-            //Image image = GetComponent<Image>();
-            //image.sprite = RunAppSprite;
         }
 
         public override void SetImage(Sprite sprite)
