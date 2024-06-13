@@ -4,37 +4,38 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.Netcode;
 
-public class ImageClient : NetworkBehaviour
+public class CanvasRunHistory : NetworkBehaviour
 {
+    [SerializeField] GameObject ImageRunHistory;
+
     [SerializeField] private Sprite RunAppSprite;
     [SerializeField] private Sprite HistoryModeSprite;
-
-
-    // Start is called before the first frame update
-    //public NetworkVariable<Vector3> Position = new NetworkVariable<Vector3>();
 
     public override void OnNetworkSpawn()
     {
         if (IsOwner)
         {
-            CanvasOnRpc();
+            CanvasClientOnRpc();
+            CanvasHostOnRpc();
         }
     }
 
-        // Update is called once per frame
-    //void Update()
-    //{
-    //    if (Input.GetKey(KeyCode.H))
-    //    {
-    //        CanvasOnRpc();
-    //    }
-        
-    //}
+    private void Start()
+    {
+        CanvasClientOnRpc();
+        CanvasHostOnRpc();
+    }
 
     [Rpc(SendTo.NotServer)]
-    void CanvasOnRpc()
+    void CanvasClientOnRpc()
     {
         Image image = GetComponent<Image>();
         image.sprite = RunAppSprite;
+    }
+
+    [Rpc(SendTo.Server)]
+    void CanvasHostOnRpc()
+    {
+        gameObject.SetActive(false);
     }
 }

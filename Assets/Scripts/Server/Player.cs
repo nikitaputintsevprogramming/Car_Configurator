@@ -16,8 +16,6 @@ namespace T34
             }
         }
 
-
-
         //public void Move()
         //{
         //    SubmitPositionRequestServerRpc();
