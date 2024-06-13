@@ -20,11 +20,13 @@ namespace T34
         private void OnEnable()
         {
             CanvasControl.OnBeginDragEvent += SetImage;
+            Debug.Log("On Enable");
         }
 
         private void OnDisable()
         {
             CanvasControl.OnBeginDragEvent -= SetImage;
+            Debug.Log("On Disable");
         }
 
         public override void OnNetworkSpawn()
@@ -62,7 +64,7 @@ namespace T34
         [Rpc(SendTo.Server)]
         void CanvasHostOnRpc()
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
     }
 }

@@ -8,14 +8,19 @@ using UnityEngine.EventSystems;
 
 namespace T34
 {
-    public class CanvasControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class CanvasControl : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public static event Action<Sprite> OnBeginDragEvent;
         [SerializeField] private Sprite HistoryModeSprite;
 
-        public void OnBeginDrag(PointerEventData data)
+        public void OnPointerClick(PointerEventData data)
         {
             OnBeginDragEvent?.Invoke(HistoryModeSprite);
+        }
+
+        public void OnBeginDrag(PointerEventData data)
+        {
+            
         }
 
         public void OnDrag(PointerEventData data)
