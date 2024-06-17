@@ -6,7 +6,7 @@ using Unity.Netcode;
 
 namespace T34
 {
-    public class CanvasRunHistory : NetworkBehaviour, INotifiable
+    public class CanvasHistory : NetworkBehaviour, TextureChangable
     {
         public delegate void AccountHandler(string message);
         public event AccountHandler NotifyEvent;
@@ -58,7 +58,7 @@ namespace T34
             Debug.Log($"Received notification: {message}");
         }
 
-        public void Notify(string message)
+        public void TextureChangeOn(string message)
         {
             Debug.Log("ÎÊ");
             Debug.Log($"Received notification: {message}");
@@ -70,14 +70,6 @@ namespace T34
                     Rotation = transform.rotation,
                     SpriteId = "grass"
                 }); // Client -> Server
-        }
-
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                Notify("Í");
-            }
         }
     }
 }

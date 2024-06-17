@@ -9,16 +9,16 @@ namespace T34
 {
     public class CanvasControl : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        private INotifiable notifiable;
+        private TextureChangable _textureChangable;
         private void Awake()
         {
             //Находим класс релизазующий интерфейс
-            notifiable = FindObjectOfType<CanvasRunHistory>();
+            _textureChangable = FindObjectOfType<CanvasHistory>();
         }
 
         public void OnPointerClick(PointerEventData data)
         {
-            notifiable?.Notify("Notification from CanvasControl");
+            _textureChangable?.TextureChangeOn("Cabine");
         }
 
         public void OnBeginDrag(PointerEventData data)
