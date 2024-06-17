@@ -10,7 +10,13 @@ namespace T34
 
         void OnGUI()
         {
-            GUILayout.BeginArea(new Rect(10, 10, 1500, 1008));
+            float screenWidth = Screen.width;
+            float screenHeight = Screen.height;
+
+            float centerX = (screenWidth - ButtonWidth) / 2;
+            float centerY = (screenHeight - ButtonHeight * 2) / 2; // Умножаем ButtonHeight на 2, чтобы учесть две кнопки по высоте
+
+            GUILayout.BeginArea(new Rect(centerX, centerY, ButtonWidth, ButtonHeight * 2)); // область для двух кнопок
             if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
             {
                 StartButtons();
@@ -27,13 +33,8 @@ namespace T34
         static void StartButtons()
         {
             if (GUILayout.Button("Host", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight))) NetworkManager.Singleton.StartHost();
-            if (GUILayout.Button("Client", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight)))
-            {
-                NetworkManager.Singleton.StartClient();
-                //_textureChangable?.TextureChangeOn("Textures/HistoryMode/Cabine");
-                //if (GUILayout.Button("Server", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight)))
-                //    NetworkManager.Singleton.StartServer();
-            }
+            if (GUILayout.Button("Client", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight))) NetworkManager.Singleton.StartClient();
+            //if (GUILayout.Button("Server", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight))) NetworkManager.Singleton.StartServer();
         }
 
         static void StatusLabels()
