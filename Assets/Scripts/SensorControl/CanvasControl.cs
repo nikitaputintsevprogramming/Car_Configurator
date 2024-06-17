@@ -21,14 +21,14 @@ namespace T34
         public void OnPointerClick(PointerEventData data)
         {
             // Check if the network is active
-            if (NetworkManager.Singleton.IsServer)
-            {
-                _textureChangable?.TextureChangeOn("RunScreen");
-            }
-            else
-            {
-                Debug.LogWarning("Network is not active. Click event ignored.");
-            }
+            //if (NetworkManager.Singleton.IsServer)
+            //{
+                _textureChangable?.TextureChangeOn("Textures/HistoryMode/Cabine");
+            //}
+            //else
+            //{
+            //    Debug.LogWarning("Network is not active. Click event ignored.");
+            //}
         }
 
         public void OnBeginDrag(PointerEventData data)

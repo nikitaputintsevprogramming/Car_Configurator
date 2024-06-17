@@ -26,6 +26,12 @@ namespace T34
             }
         }
 
+        public override void OnNetworkSpawn()
+        {
+            print("Net spawn");
+            TextureChangeOn("Textures/Run/RunScreen");
+        }
+
         Sprite LoadSprite(string spriteId)
         {
             Texture2D texture = Resources.Load<Texture2D>(spriteId);

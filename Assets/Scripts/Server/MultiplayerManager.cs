@@ -27,9 +27,13 @@ namespace T34
         static void StartButtons()
         {
             if (GUILayout.Button("Host", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight))) NetworkManager.Singleton.StartHost();
-            if (GUILayout.Button("Client", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight))) NetworkManager.Singleton.StartClient();
-            //if (GUILayout.Button("Server", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight)))
-            //    NetworkManager.Singleton.StartServer();
+            if (GUILayout.Button("Client", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight)))
+            {
+                NetworkManager.Singleton.StartClient();
+                //_textureChangable?.TextureChangeOn("Textures/HistoryMode/Cabine");
+                //if (GUILayout.Button("Server", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight)))
+                //    NetworkManager.Singleton.StartServer();
+            }
         }
 
         static void StatusLabels()
