@@ -12,7 +12,7 @@ namespace T34
     { 
         public void OnPointerClick(PointerEventData data)
         {
-            
+            //CanvasRunHistory.Notify += CanvasRunHistory.OnNotifyReceived;
         }
 
         public void OnBeginDrag(PointerEventData data)

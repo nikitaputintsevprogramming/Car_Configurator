@@ -6,9 +6,11 @@ using Unity.Netcode;
 
 namespace T34
 {
-
     public class CanvasRunHistory : NetworkBehaviour
     {
+        public delegate void AccountHandler(string message);
+        public event AccountHandler? Notify;
+
         struct MyStruct : INetworkSerializable
         {
             public Vector3 Position;
@@ -24,10 +26,8 @@ namespace T34
             }
         }
 
-        // Method to load sprite by id
         Sprite LoadSprite(string spriteId)
         {
-            // Load Texture2D from Resources
             Texture2D texture = Resources.Load<Texture2D>(spriteId);
             if (texture != null)
             {
@@ -41,25 +41,35 @@ namespace T34
         {
             transform.position = myStruct.Position;
 
-            // Load sprite using SpriteId
             Sprite receivedSprite = LoadSprite(myStruct.SpriteId);
             if (receivedSprite != null)
             {
-                // Apply the sprite to a component (example: SpriteRenderer)
                 GetComponent<Image>().sprite = receivedSprite;
             }
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            Notify += OnNotifyReceived;
+        }
+
+        public void OnNotifyReceived(string message)
+        {
+            Debug.Log($"Received notification: {message}");
         }
 
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.P))
             {
+                Debug.Log("ÎÊ");
+                Notify?.Invoke("Í");
                 MyServerRpc(
                     new MyStruct
                     {
                         Position = transform.position,
                         Rotation = transform.rotation,
-                        SpriteId = "grass" // Send the identifier for the sprite
+                        SpriteId = "grass" 
                     }); // Client -> Server
             }
         }
