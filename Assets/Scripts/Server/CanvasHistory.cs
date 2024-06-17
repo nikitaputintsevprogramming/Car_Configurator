@@ -16,6 +16,7 @@ namespace T34
             public Vector3 Position;
             public Quaternion Rotation;
             public string SpriteId;
+            public float transpServerHistoryImage;
 
             // INetworkSerializable
             public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
@@ -23,16 +24,54 @@ namespace T34
                 serializer.SerializeValue(ref Position);
                 serializer.SerializeValue(ref Rotation);
                 serializer.SerializeValue(ref SpriteId);
+                serializer.SerializeValue(ref transpServerHistoryImage);
             }
         }
 
         public override void OnNetworkSpawn()
         {
-            print("Net spawn");
             TextureChangeOn("Textures/Run/RunScreen");
+            ChangeTransperentyRpc();
+        }
+        public void TextureChangeOn(string message)
+        {
+            Debug.Log("ОК");
+            Debug.Log($"Received notification: {message}");
+            ChangeSpriteEvent?.Invoke(message);
+            ChangeSpriteRpc(
+                new MyStruct
+                {
+                    Position = transform.position,
+                    Rotation = transform.rotation,
+                    SpriteId = message,
+                    transpServerHistoryImage = 1
+                }); // Client -> Server
         }
 
-        Sprite LoadSprite(string spriteId)
+        [Rpc(SendTo.NotServer)]
+        void ChangeSpriteRpc(MyStruct myStruct)
+        {
+            transform.position = myStruct.Position;
+
+            Sprite receivedSprite = CreateSprite(myStruct.SpriteId);
+            if (receivedSprite != null)
+            {
+                GetComponent<Image>().sprite = receivedSprite;
+                Color col = GetComponent<Image>().color;
+                col.a = myStruct.transpServerHistoryImage;
+                GetComponent<Image>().color = col;
+            }
+        }
+
+        [Rpc(SendTo.Server)]
+        void ChangeTransperentyRpc()
+        {
+            Color newColor = GetComponent<Image>().color;
+            newColor.a = 0;
+            GetComponent<Image>().color = newColor;
+        }
+
+        Sprite CreateSprite(string spriteId)
         {
             Texture2D texture = Resources.Load<Texture2D>(spriteId);
             if (texture != null)
@@ -40,44 +79,6 @@ namespace T34
                 return Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
             }
             return null;
-        }
-
-        [Rpc(SendTo.NotServer)]
-        void MyServerRpc(MyStruct myStruct)
-        {
-            transform.position = myStruct.Position;
-
-            Sprite receivedSprite = LoadSprite(myStruct.SpriteId);
-            if (receivedSprite != null)
-            {
-                GetComponent<Image>().sprite = receivedSprite;
-            }
-        }
-
-        //private void Start()
-        //{
-        //    ChangeSpriteEvent -= TextureChangeOn;
-        //    Debug.Log("Отключаем событие");
-        //}
-
-        //public override void OnNetworkSpawn()
-        //{
-        //    ChangeSpriteEvent += TextureChangeOn;
-        //    Debug.Log("Включаем событие");
-        //}
-
-        public void TextureChangeOn(string message)
-        {
-            Debug.Log("ОК");
-            Debug.Log($"Received notification: {message}");
-            ChangeSpriteEvent?.Invoke(message);
-            MyServerRpc(
-                new MyStruct
-                {
-                    Position = transform.position,
-                    Rotation = transform.rotation,
-                    SpriteId = message
-                }); // Client -> Server
         }
     }
 }
