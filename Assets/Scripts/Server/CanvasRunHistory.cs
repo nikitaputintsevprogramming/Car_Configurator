@@ -6,65 +6,62 @@ using Unity.Netcode;
 
 namespace T34
 {
-    public abstract class CanvasImageHandler : NetworkBehaviour
+
+    public class CanvasRunHistory : NetworkBehaviour
     {
-        public abstract void SetImage(Sprite sprite);
-    }
-
-    public class CanvasRunHistory : CanvasImageHandler
-    {
-        [SerializeField] GameObject ImageRunHistory;
-
-        [SerializeField] private Sprite RunAppSprite;
-
-        private void OnEnable()
+        struct MyStruct : INetworkSerializable
         {
-            CanvasControl.OnBeginDragEvent += SetImage;
-            Debug.Log("On Enable");
-        }
+            public Vector3 Position;
+            public Quaternion Rotation;
+            public string SpriteId;
 
-        private void OnDisable()
-        {
-            CanvasControl.OnBeginDragEvent -= SetImage;
-            Debug.Log("On Disable");
-        }
-
-        public override void OnNetworkSpawn()
-        {
-            if (IsOwner)
+            // INetworkSerializable
+            public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
             {
-                CanvasClientOnRpc();
-                CanvasHostOnRpc();
+                serializer.SerializeValue(ref Position);
+                serializer.SerializeValue(ref Rotation);
+                serializer.SerializeValue(ref SpriteId);
             }
         }
 
-        private void Start()
+        // Method to load sprite by id
+        Sprite LoadSprite(string spriteId)
         {
-            CanvasClientOnRpc();
-            CanvasHostOnRpc();
+            // Load Texture2D from Resources
+            Texture2D texture = Resources.Load<Texture2D>(spriteId);
+            if (texture != null)
+            {
+                return Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            }
+            return null;
         }
 
         [Rpc(SendTo.NotServer)]
-        void CanvasClientOnRpc()
+        void MyServerRpc(MyStruct myStruct)
         {
-            SetImage(RunAppSprite);
-        }
+            transform.position = myStruct.Position;
 
-        public override void SetImage(Sprite sprite)
-        {
-            Image image = ImageRunHistory.GetComponent<Image>();
-            if (image != null)
+            // Load sprite using SpriteId
+            Sprite receivedSprite = LoadSprite(myStruct.SpriteId);
+            if (receivedSprite != null)
             {
-                image.sprite = sprite;
+                // Apply the sprite to a component (example: SpriteRenderer)
+                GetComponent<Image>().sprite = receivedSprite;
             }
         }
 
-        [Rpc(SendTo.Server)]
-        void CanvasHostOnRpc()
+        void Update()
         {
-            //gameObject.SetActive(false);
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                MyServerRpc(
+                    new MyStruct
+                    {
+                        Position = transform.position,
+                        Rotation = transform.rotation,
+                        SpriteId = "grass" // Send the identifier for the sprite
+                    }); // Client -> Server
+            }
         }
     }
 }
-
-
