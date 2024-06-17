@@ -14,21 +14,17 @@ namespace T34
 
         private void Awake()
         {
-            //Находим класс релизазующий интерфейс
+            // Находим класс релизующий интерфейс
             _textureChangable = FindObjectOfType<CanvasHistory>();
+            if (_textureChangable == null)
+            {
+                Debug.LogError("CanvasHistory component not found in the scene!");
+            }
         }
 
         public void OnPointerClick(PointerEventData data)
         {
-            // Check if the network is active
-            //if (NetworkManager.Singleton.IsServer)
-            //{
-                _textureChangable?.TextureChangeOn("Textures/HistoryMode/Cabine");
-            //}
-            //else
-            //{
-            //    Debug.LogWarning("Network is not active. Click event ignored.");
-            //}
+            _textureChangable?.TextureChangeOn("Textures/HistoryMode/Cabine");
         }
 
         public void OnBeginDrag(PointerEventData data)

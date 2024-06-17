@@ -57,6 +57,12 @@ namespace T34
             if (receivedSprite != null)
             {
                 GetComponent<Image>().sprite = receivedSprite;
+                var imageComponent = GetComponent<Image>();
+                if (imageComponent == null)
+                {
+                    Debug.LogWarning("Image component not found!");
+                    return;
+                }
                 Color col = GetComponent<Image>().color;
                 col.a = myStruct.transpServerHistoryImage;
                 GetComponent<Image>().color = col;
@@ -66,9 +72,15 @@ namespace T34
         [Rpc(SendTo.Server)]
         void ChangeTransperentyRpc()
         {
-            Color newColor = GetComponent<Image>().color;
+            var imageComponent = GetComponent<Image>();
+            if (imageComponent == null)
+            {
+                Debug.LogWarning("Image component not found!");
+                return;
+            }
+            Color newColor = imageComponent.color;
             newColor.a = 0;
-            GetComponent<Image>().color = newColor;
+            imageComponent.color = newColor;
         }
 
         Sprite CreateSprite(string spriteId)
