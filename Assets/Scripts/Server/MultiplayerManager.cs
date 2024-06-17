@@ -5,9 +5,12 @@ namespace T34
 {
     public class MultiplayerManager : MonoBehaviour
     {
+        private const float ButtonWidth = 1000f;
+        private const float ButtonHeight = 500f;
+
         void OnGUI()
         {
-            GUILayout.BeginArea(new Rect(10, 10, 300, 300));
+            GUILayout.BeginArea(new Rect(10, 10, 1500, 1008));
             if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
             {
                 StartButtons();
@@ -23,9 +26,10 @@ namespace T34
 
         static void StartButtons()
         {
-            if (GUILayout.Button("Host")) NetworkManager.Singleton.StartHost();
-            if (GUILayout.Button("Client")) NetworkManager.Singleton.StartClient();
-            if (GUILayout.Button("Server")) NetworkManager.Singleton.StartServer();
+            if (GUILayout.Button("Host", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight))) NetworkManager.Singleton.StartHost();
+            if (GUILayout.Button("Client", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight))) NetworkManager.Singleton.StartClient();
+            //if (GUILayout.Button("Server", GUILayout.Width(ButtonWidth), GUILayout.Height(ButtonHeight)))
+            //    NetworkManager.Singleton.StartServer();
         }
 
         static void StatusLabels()

@@ -319,7 +319,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1933768584}
-  - {fileID: 1158055983}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &675114899
@@ -558,7 +557,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 446247718}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1158055984
 MonoBehaviour:
@@ -760,6 +759,7 @@ GameObject:
   - component: {fileID: 1456694590}
   - component: {fileID: 1456694589}
   - component: {fileID: 1456694588}
+  - component: {fileID: 1456694591}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -826,6 +826,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1456694586}
   m_CullTransparentMesh: 1
+--- !u!114 &1456694591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456694586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4a4e89dd949751429415747cc179221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1654763597
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,7 +885,7 @@ GameObject:
   - component: {fileID: 1791508942}
   - component: {fileID: 1791508941}
   m_Layer: 5
-  m_Name: CanvasRunHistory
+  m_Name: CanvasOverlayHistory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -974,8 +986,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a4e89dd949751429415747cc179221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ImageRunHistory: {fileID: 1456694586}
-  RunAppSprite: {fileID: 21300000, guid: 35ad533a689343149a0d3d47fb4ad70f, type: 3}
 --- !u!114 &1791508942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1144,6 +1154,7 @@ GameObject:
   - component: {fileID: 1948580947}
   - component: {fileID: 1948580950}
   - component: {fileID: 1948580949}
+  - component: {fileID: 1948580951}
   - component: {fileID: 1948580948}
   m_Layer: 5
   m_Name: ImageControl
@@ -1183,7 +1194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9eb681d788bc83459fd128b8474a5e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HistoryModeSprite: {fileID: 21300000, guid: e819fb9bcb6d17849a4af2b897658578, type: 3}
 --- !u!114 &1948580949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1222,6 +1232,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948580946}
   m_CullTransparentMesh: 1
+--- !u!114 &1948580951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948580946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2776661434
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!23 &3567561925102343
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -49926,5 +49957,6 @@ SceneRoots:
   - {fileID: 2775179124416331082}
   - {fileID: 1267868245}
   - {fileID: 446247718}
+  - {fileID: 1158055983}
   - {fileID: 1095570064}
   - {fileID: 1365347237}

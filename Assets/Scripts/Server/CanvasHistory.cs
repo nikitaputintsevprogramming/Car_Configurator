@@ -6,10 +6,10 @@ using Unity.Netcode;
 
 namespace T34
 {
-    public class CanvasHistory : NetworkBehaviour, TextureChangable
+    public class CanvasHistory : NetworkBehaviour, ITextureChangable
     {
         public delegate void AccountHandler(string message);
-        public event AccountHandler NotifyEvent;
+        public event AccountHandler ChangeSpriteEvent;
 
         struct MyStruct : INetworkSerializable
         {
@@ -48,27 +48,29 @@ namespace T34
             }
         }
 
-        public override void OnNetworkSpawn()
-        {
-            NotifyEvent += OnNotifyReceived;
-        }
+        //private void Start()
+        //{
+        //    ChangeSpriteEvent -= TextureChangeOn;
+        //    Debug.Log("Отключаем событие");
+        //}
 
-        public void OnNotifyReceived(string message)
-        {
-            Debug.Log($"Received notification: {message}");
-        }
+        //public override void OnNetworkSpawn()
+        //{
+        //    ChangeSpriteEvent += TextureChangeOn;
+        //    Debug.Log("Включаем событие");
+        //}
 
         public void TextureChangeOn(string message)
         {
             Debug.Log("ОК");
             Debug.Log($"Received notification: {message}");
-            NotifyEvent?.Invoke(message);
+            ChangeSpriteEvent?.Invoke(message);
             MyServerRpc(
                 new MyStruct
                 {
                     Position = transform.position,
                     Rotation = transform.rotation,
-                    SpriteId = "grass"
+                    SpriteId = message
                 }); // Client -> Server
         }
     }

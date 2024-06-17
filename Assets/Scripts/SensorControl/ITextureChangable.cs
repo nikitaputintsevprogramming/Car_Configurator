@@ -1,4 +1,4 @@
-public interface TextureChangable
+public interface ITextureChangable
 {
     void TextureChangeOn(string message);
 }
