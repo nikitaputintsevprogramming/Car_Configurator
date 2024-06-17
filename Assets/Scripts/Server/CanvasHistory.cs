@@ -63,9 +63,9 @@ namespace T34
                     Debug.LogWarning("Image component not found!");
                     return;
                 }
-                Color col = GetComponent<Image>().color;
-                col.a = myStruct.transpServerHistoryImage;
-                GetComponent<Image>().color = col;
+                Color newColor = GetComponent<Image>().color;
+                newColor.a = myStruct.transpServerHistoryImage;
+                GetComponent<Image>().color = newColor;
             }
         }
 
