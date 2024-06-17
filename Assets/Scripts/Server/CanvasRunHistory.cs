@@ -6,10 +6,10 @@ using Unity.Netcode;
 
 namespace T34
 {
-    public class CanvasRunHistory : NetworkBehaviour
+    public class CanvasRunHistory : NetworkBehaviour, INotifiable
     {
         public delegate void AccountHandler(string message);
-        public event AccountHandler? Notify;
+        public event AccountHandler NotifyEvent;
 
         struct MyStruct : INetworkSerializable
         {
@@ -50,7 +50,7 @@ namespace T34
 
         public override void OnNetworkSpawn()
         {
-            Notify += OnNotifyReceived;
+            NotifyEvent += OnNotifyReceived;
         }
 
         public void OnNotifyReceived(string message)
@@ -58,19 +58,25 @@ namespace T34
             Debug.Log($"Received notification: {message}");
         }
 
+        public void Notify(string message)
+        {
+            Debug.Log("ÎÊ");
+            Debug.Log($"Received notification: {message}");
+            NotifyEvent?.Invoke(message);
+            MyServerRpc(
+                new MyStruct
+                {
+                    Position = transform.position,
+                    Rotation = transform.rotation,
+                    SpriteId = "grass"
+                }); // Client -> Server
+        }
+
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.P))
             {
-                Debug.Log("ÎÊ");
-                Notify?.Invoke("Í");
-                MyServerRpc(
-                    new MyStruct
-                    {
-                        Position = transform.position,
-                        Rotation = transform.rotation,
-                        SpriteId = "grass" 
-                    }); // Client -> Server
+                Notify("Í");
             }
         }
     }

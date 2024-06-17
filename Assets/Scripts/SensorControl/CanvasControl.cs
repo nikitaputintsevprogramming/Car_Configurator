@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,15 +8,22 @@ using UnityEngine.EventSystems;
 namespace T34
 {
     public class CanvasControl : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
-    { 
+    {
+        private INotifiable notifiable;
+        private void Awake()
+        {
+            //Находим класс релизазующий интерфейс
+            notifiable = FindObjectOfType<CanvasRunHistory>();
+        }
+
         public void OnPointerClick(PointerEventData data)
         {
-            //CanvasRunHistory.Notify += CanvasRunHistory.OnNotifyReceived;
+            notifiable?.Notify("Notification from CanvasControl");
         }
 
         public void OnBeginDrag(PointerEventData data)
         {
-            
+
         }
 
         public void OnDrag(PointerEventData data)
