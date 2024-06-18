@@ -5978,6 +5978,7 @@ GameObject:
   - component: {fileID: 7436489060163360712}
   - component: {fileID: 2624430145584478643}
   - component: {fileID: 4168844279620512287}
+  - component: {fileID: 7436489060163360713}
   m_Layer: 0
   m_Name: FuelT1
   m_TagString: Untagged
@@ -11412,13 +11413,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2330218278763282261}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.0015431639, y: 0.0017091467, z: 0.008418518, w: 0.999962}
   m_LocalPosition: {x: 0.57568234, y: -2.3145564, z: 0.07088913}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1153340682399134941}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.178, y: 0.194, z: 0.964}
 --- !u!23 &1822558693803333268
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -40086,6 +40087,7 @@ GameObject:
   - component: {fileID: 7303310135730941649}
   - component: {fileID: 3531263257520715360}
   - component: {fileID: 6901641072649300481}
+  - component: {fileID: 7319699207924075968}
   m_Layer: 0
   m_Name: FrontGun
   m_TagString: Untagged
@@ -40093,6 +40095,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7319699207924075968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7319699207924075967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7322835781461825652
 GameObject:
   m_ObjectHideFlags: 0
@@ -40831,6 +40851,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1153340682399134941}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7436489060163360713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860707825288056869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!33 &7443532086391972346
 MeshFilter:
   m_ObjectHideFlags: 0
