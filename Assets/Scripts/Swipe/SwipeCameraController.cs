@@ -16,6 +16,10 @@ public class SwipeCameraController : MonoBehaviour, IBeginDragHandler, IDragHand
     private float v;
     private float h;
 
+    private float verticalAngle = 0f;
+    public float minVerticalAngle = -3f; // Minimum vertical angle
+    public float maxVerticalAngle = 30f;  // Maximum vertical angle
+
     [SerializeField] List<GameObject> _tracks;
     DefaultControls.Resources knob;
 
@@ -36,16 +40,20 @@ public class SwipeCameraController : MonoBehaviour, IBeginDragHandler, IDragHand
     {
         
         Vector3 _moveTo = new Vector3(0, 0, v * _speed * Time.deltaTime);
-        Vector3 _rotTo = new Vector3(0, h * _speed * Time.deltaTime, 0);
-        Vector3 _leanTo = new Vector3(-v * _speed * Time.deltaTime, 0, 0);
 
         v = eventData.delta.y;
         h = eventData.delta.x;
 
+
+
         if (Input.touchCount >= 2)
         {
             _camera.transform.RotateAround(_target.transform.position, Vector3.up, -h * Time.deltaTime);
-            _camera.transform.RotateAround(_target.transform.position, _camera.transform.right, v * Time.deltaTime);
+            float newVerticalAngle = verticalAngle + (v * Time.deltaTime);
+            newVerticalAngle = Mathf.Clamp(newVerticalAngle, minVerticalAngle, maxVerticalAngle);
+            float angleToRotate = newVerticalAngle - verticalAngle;
+            _camera.transform.RotateAround(_target.transform.position, _camera.transform.right, angleToRotate);
+            verticalAngle = newVerticalAngle;
         }
         else
         {
