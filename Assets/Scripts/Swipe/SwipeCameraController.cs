@@ -34,8 +34,8 @@ public class SwipeCameraController : MonoBehaviour, IBeginDragHandler, IDragHand
 
     public void OnDrag(PointerEventData eventData)
     {
-        //transform.LookAt(_target);
-        Vector3 _moveTo = new Vector3(h * _speed * Time.deltaTime, 0, v * _speed * Time.deltaTime);
+        
+        Vector3 _moveTo = new Vector3(0, 0, v * _speed * Time.deltaTime);
         Vector3 _rotTo = new Vector3(0, h * _speed * Time.deltaTime, 0);
         Vector3 _leanTo = new Vector3(-v * _speed * Time.deltaTime, 0, 0);
 
@@ -44,8 +44,8 @@ public class SwipeCameraController : MonoBehaviour, IBeginDragHandler, IDragHand
 
         if (Input.touchCount >= 2)
         {
-            _camera.transform.Rotate(_rotTo, Space.World);
-            _camera.transform.Rotate(_leanTo, Space.Self);
+            _camera.transform.RotateAround(_target.transform.position, Vector3.up, -h * Time.deltaTime);
+            _camera.transform.RotateAround(_target.transform.position, _camera.transform.right, v * Time.deltaTime);
         }
         else
         {
