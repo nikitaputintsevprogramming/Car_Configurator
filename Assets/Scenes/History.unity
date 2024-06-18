@@ -1307,13 +1307,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192d73d28cfc9a04e913ca0cbfc5834c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 2775179124416331082}
-  _canvas: {fileID: 340242076}
-  _camera: {fileID: 1873799389}
-  _speed: 1
-  minVerticalAngle: -3
-  maxVerticalAngle: 30
-  _tracks: []
+  target: {fileID: 2775179124416331082}
+  camera: {fileID: 1873799389}
+  distance: 10
+  sensitivity: 2
+  DesktopSpeedDelta: 50
+  yMinLimit: 20
+  yMaxLimit: 80
+  distanceMin: 5
+  distanceMax: 15
+  smoothTime: 0.2
+  zoomSpeed: 0.2
 --- !u!23 &3567561925102343
 MeshRenderer:
   m_ObjectHideFlags: 0

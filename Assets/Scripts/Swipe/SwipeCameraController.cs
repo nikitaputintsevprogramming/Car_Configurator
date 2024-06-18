@@ -1,89 +1,121 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(Image))]
-public class SwipeCameraController : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class SwipeCameraController : MonoBehaviour, IDragHandler
 {
-    [SerializeField] private Transform _target;
-    [SerializeField] private Transform _canvas;
+    public delegate void OnDragHandler(string message);
+    public event OnDragHandler OnDragCall;
 
+    [SerializeField] private Transform target;
     [SerializeField] private Camera _camera;
-    [SerializeField] private float _speed;
+    [SerializeField] private float distance = 10f;
+    [SerializeField] private float sensitivity = 0.8f;
+    [SerializeField] private float DesktopSpeedDelta = 50f;
+    [SerializeField] private float yMinLimit = 20f;
+    [SerializeField] private float yMaxLimit = 80f;
+    [SerializeField] private float distanceMin = 15f;
+    [SerializeField] private float distanceMax = 30f;
+    [SerializeField] private float smoothTime = 0.2f;
+    [SerializeField] private float zoomSpeed = 0.2f;
 
-    private float v;
-    private float h;
+    private float x = 0f;
+    private float y = 0f;
+    private float currentDistance;
+    private float targetDistance;
+    private Vector3 smoothVelocity = Vector3.zero;
 
-    private float verticalAngle = 0f;
-    public float minVerticalAngle = -3f; // Minimum vertical angle
-    public float maxVerticalAngle = 30f;  // Maximum vertical angle
-
-    [SerializeField] List<GameObject> _tracks;
-    DefaultControls.Resources knob;
-
-    public void OnBeginDrag(PointerEventData eventData)
+    private void Start()
     {
-        var _track = new GameObject("trailStep", typeof(RectTransform), typeof(Image));
+        Vector3 angles = _camera.transform.eulerAngles;
+        x = angles.y;
+        y = angles.x;
 
-        _track.transform.SetParent(_canvas.transform);
-        _track.GetComponent<RectTransform>().localPosition = Vector2.zero;
-        _track.GetComponent<RectTransform>().localScale = Vector3.one;
-        _track.GetComponent<RectTransform>().localRotation = Quaternion.identity;
-        _track.GetComponent<Image>().sprite = Resources.Load<Sprite>("Trail/trailStep");
-        _track.GetComponent<Image>().color = new Color(255, 255, 255, 0.3f);
-        _tracks.Add(_track);
+        currentDistance = distanceMax;
+        targetDistance = distanceMax;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        
-        Vector3 _moveTo = new Vector3(0, 0, v * _speed * Time.deltaTime);
+        OnDragCall?.Invoke("Произошло действие");
 
-        v = eventData.delta.y;
-        h = eventData.delta.x;
-
-
-
-        if (Input.touchCount >= 2)
+        if (target)
         {
-            _camera.transform.RotateAround(_target.transform.position, Vector3.up, -h * Time.deltaTime);
-            float newVerticalAngle = verticalAngle + (v * Time.deltaTime);
-            newVerticalAngle = Mathf.Clamp(newVerticalAngle, minVerticalAngle, maxVerticalAngle);
-            float angleToRotate = newVerticalAngle - verticalAngle;
-            _camera.transform.RotateAround(_target.transform.position, _camera.transform.right, angleToRotate);
-            verticalAngle = newVerticalAngle;
-        }
-        else
-        {
-            _camera.transform.Translate(_moveTo, Space.Self);
-        }
+            float horizontalInput = Input.GetAxis("Mouse X");
+            float verticalInput = Input.GetAxis("Mouse Y");
+            float zoomInput = Input.mouseScrollDelta.y;
 
-        List<Touch> _touches = new List<Touch>();
-        _touches.Clear();
-        _touches = new List<Touch>(Input.touches);
-
-        for (int i = 0; i < _touches.Count; i++)
-        {
-            if (i < _tracks.Count)
+            if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Moved)
             {
-                float pointX = Input.touches[i].position.x - _canvas.GetComponent<RectTransform>().sizeDelta.x / 2;
-                float pointY = Input.touches[i].position.y - _canvas.GetComponent<RectTransform>().sizeDelta.y / 2;
-                _tracks[i].GetComponent<RectTransform>().localPosition = new Vector2(pointX, pointY);
+                x += Input.GetTouch(0).deltaPosition.x * Time.deltaTime * sensitivity;
+                y -= Input.GetTouch(0).deltaPosition.y * Time.deltaTime * sensitivity;
+                y = ClampAngle(y, yMinLimit, yMaxLimit);
             }
+            else if (Input.GetMouseButton(0))
+            {
+                // вычисляем новый угол по горизонтали
+                x += horizontalInput * Time.deltaTime * sensitivity * DesktopSpeedDelta;
+
+                // вычисляем новый угол по вертикали
+                y -= verticalInput * Time.deltaTime * sensitivity * DesktopSpeedDelta;
+                y = ClampAngle(y, yMinLimit, yMaxLimit);
+            }
+
+            if (Input.touchCount == 2)
+            {
+                Touch touch1 = Input.GetTouch(0);
+                Touch touch2 = Input.GetTouch(1);
+
+                Vector2 touch1PrevPos = touch1.position - touch1.deltaPosition;
+                Vector2 touch2PrevPos = touch2.position - touch2.deltaPosition;
+
+                float prevTouchDeltaMag = (touch1PrevPos - touch2PrevPos).magnitude;
+                float touchDeltaMag = (touch1.position - touch2.position).magnitude;
+
+                float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
+
+                targetDistance += deltaMagnitudeDiff * zoomSpeed * Time.deltaTime;
+                targetDistance = Mathf.Clamp(targetDistance, distanceMin, distanceMax);
+            }
+
+            else if (zoomInput != 0)
+            {
+                // вычисляем новое расстояние
+                targetDistance += -zoomInput * zoomSpeed * Time.deltaTime * DesktopSpeedDelta;
+                targetDistance = Mathf.Clamp(targetDistance, distanceMin, distanceMax);
+            }
+
+            Quaternion rotation = Quaternion.Euler(y, x, 0f);
+            Vector3 negDistance = new Vector3(0f, 0f, -targetDistance);
+            Vector3 position = rotation * negDistance + target.position;
+
+            RaycastHit hit;
+            if (Physics.Linecast(target.position, position, out hit))
+            {
+                targetDistance -= hit.distance;
+                targetDistance = Mathf.Clamp(targetDistance, distanceMin, distanceMax);
+            }
+
+            currentDistance = Mathf.SmoothDamp(currentDistance, targetDistance, ref smoothVelocity.z, smoothTime);
+            position = rotation * new Vector3(0f, 0f, -currentDistance) + target.position;
+
+            _camera.transform.rotation = rotation;
+            _camera.transform.position = position;
         }
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    private static float ClampAngle(float angle, float min, float max)
     {
-        v = 0;
-        h = 0;
-
-        for (int i = _tracks.Count - 1; i >= 0; i--)
+        if (angle < -360f)
         {
-            Destroy(_tracks[i]);
-            _tracks.RemoveAt(i);
+            angle += 360f;
         }
+        if (angle > 360f)
+        {
+            angle -= 360f;
+        }
+        return Mathf.Clamp(angle, min, max);
     }
 }
