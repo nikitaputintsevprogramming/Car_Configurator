@@ -11,15 +11,15 @@ namespace T34
     public class CanvasControl : NetworkBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         private ITextureChangable _textureChangable;
+        //private IOutlinear _outlinear;
 
         private void Awake()
         {
             // Находим класс релизующий интерфейс
             _textureChangable = FindObjectOfType<CanvasHistory>();
-            if (_textureChangable == null)
-            {
-                Debug.LogError("CanvasHistory component not found in the scene!");
-            }
+            //_outlinear = FindObjectOfType<PopUp>();
+            if (_textureChangable == null) Debug.LogError("CanvasHistory component not found in the scene!");
+            //if (_outlinear == null) Debug.LogError("PopUp component not found in the scene!");
         }
 
         public void OnPointerClick(PointerEventData data)
@@ -29,12 +29,12 @@ namespace T34
 
         public void OnBeginDrag(PointerEventData data)
         {
-
+            
         }
 
-        public void OnDrag(PointerEventData data)
+        public virtual void OnDrag(PointerEventData data)
         {
-
+  
         }
 
         public void OnEndDrag(PointerEventData data)

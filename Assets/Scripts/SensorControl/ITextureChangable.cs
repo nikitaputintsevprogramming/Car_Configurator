@@ -1,4 +1,7 @@
-public interface ITextureChangable
+namespace T34
 {
-    void TextureChangeOn(string message);
+    public interface ITextureChangable
+    {
+        void TextureChangeOn(string message);
+    }
 }

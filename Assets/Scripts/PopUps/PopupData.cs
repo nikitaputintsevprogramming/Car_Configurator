@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.PopUps
+namespace T34
 {
     [CreateAssetMenu(fileName = "new PopupData", menuName = "PopupData", order = 51)]
     public class PopupData : ScriptableObject

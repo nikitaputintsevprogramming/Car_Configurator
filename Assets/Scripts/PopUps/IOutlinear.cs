@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IOutlinear 
+namespace T34
 {
-    void SetOutline(float intensity);
+    public interface IOutlinear
+    {
+        void SetOutline(float intensity);
+    }
 }
