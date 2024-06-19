@@ -116,7 +116,6 @@ namespace T34
             Transform camTransform = Camera.main.transform;
             camTransform.position = new Vector3(0, 3.5f, -5.5f);
             camTransform.rotation = Quaternion.identity;
-
         }
     }
 }
