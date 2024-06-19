@@ -10,7 +10,7 @@ namespace T34
     {
         [SerializeField] private Transform target;
         [SerializeField] private Camera _camera;
-        [SerializeField] private float distance = 10f;
+        //[SerializeField] private float distance = 10f;
         [SerializeField] private float sensitivity = 0.8f;
         [SerializeField] private float DesktopSpeedDelta = 50f;
         [SerializeField] private float yMinLimit = 20f;

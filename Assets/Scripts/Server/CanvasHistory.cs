@@ -9,7 +9,7 @@ namespace T34
     public class CanvasHistory : NetworkBehaviour, ITextureChangable
     {
         public delegate void AccountHandler(string message);
-        public event AccountHandler ChangeSpriteEvent;
+        //public event AccountHandler ChangeSpriteEvent;
 
         struct MyStruct : INetworkSerializable
         {
@@ -36,7 +36,7 @@ namespace T34
         public void TextureChangeOn(string message)
         {
             Debug.Log($"TextureChangeOn: {message}");
-            ChangeSpriteEvent?.Invoke(message);
+            //ChangeSpriteEvent?.Invoke(message);
             ChangeSpriteRpc(
                 new MyStruct
                 {

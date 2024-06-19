@@ -550,7 +550,7 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 1
+          m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -1444,7 +1444,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 2775179124416331082}
   _camera: {fileID: 1873799389}
-  distance: 10
   sensitivity: 2
   DesktopSpeedDelta: 50
   yMinLimit: 20

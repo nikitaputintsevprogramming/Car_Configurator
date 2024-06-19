@@ -8,7 +8,6 @@ namespace T34
         [SerializeField] private PopupData popUpData;
 
         private Outline _outline;
-        private Material _material;
 
         //private void Awake()
         //{
