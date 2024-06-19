@@ -11,8 +11,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-
-
 namespace T34
 {
     [DisallowMultipleComponent]
@@ -86,15 +84,21 @@ namespace T34
         [SerializeField, HideInInspector]
         private List<ListVector3> bakeValues = new List<ListVector3>();
 
+
+        [SerializeField, Range(0f, 40f)]
+        float alphaTransperency;
+
         private Renderer[] renderers;
         private Material outlineMaskMaterial;
         private Material outlineFillMaterial;
+        private Material whiteMaterial;
+        private Material[] originalMaterials; // Добавлено объявление переменной originalMaterials
+
 
         private bool needsUpdate;
 
         void Awake()
         {
-
             // Cache renderers
             renderers = GetComponentsInChildren<Renderer>();
 
@@ -102,8 +106,27 @@ namespace T34
             outlineMaskMaterial = Instantiate(Resources.Load<Material>(@"Materials/OutlineMask"));
             outlineFillMaterial = Instantiate(Resources.Load<Material>(@"Materials/OutlineFill"));
 
+            // Use a transparent shader for whiteMaterial
+            whiteMaterial = new Material(Shader.Find("Standard"));
+            whiteMaterial.SetFloat("_Mode", 3); // Transparent mode
+            whiteMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            whiteMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            whiteMaterial.SetInt("_ZWrite", 0);
+            whiteMaterial.DisableKeyword("_ALPHATEST_ON");
+            whiteMaterial.EnableKeyword("_ALPHABLEND_ON");
+            whiteMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+            whiteMaterial.renderQueue = 3000;
+            whiteMaterial.color = new Color(1, 1, 1, 1); // Initial color with full alpha
+
             outlineMaskMaterial.name = "OutlineMask (Instance)";
             outlineFillMaterial.name = "OutlineFill (Instance)";
+            whiteMaterial.name = "WhiteMaterial (Instance)";
+
+            // Cache original materials
+            if (renderers.Length > 0)
+            {
+                originalMaterials = renderers[0].sharedMaterials;
+            }
 
             // Retrieve or generate smooth normals
             LoadSmoothNormals();
@@ -116,12 +139,12 @@ namespace T34
         {
             foreach (var renderer in renderers)
             {
-
-                // Append outline shaders
+                // Append outline shaders and white material
                 var materials = renderer.sharedMaterials.ToList();
 
                 materials.Add(outlineMaskMaterial);
                 materials.Add(outlineFillMaterial);
+                materials.Add(whiteMaterial); // добавлено добавление whiteMaterial
 
                 renderer.materials = materials.ToArray();
             }
@@ -129,7 +152,6 @@ namespace T34
 
         void OnValidate()
         {
-
             // Update material properties
             needsUpdate = true;
 
@@ -152,7 +174,6 @@ namespace T34
             if (needsUpdate)
             {
                 needsUpdate = false;
-
                 UpdateMaterialProperties();
             }
         }
@@ -161,12 +182,12 @@ namespace T34
         {
             foreach (var renderer in renderers)
             {
-
-                // Remove outline shaders
+                // Remove outline shaders and white material
                 var materials = renderer.sharedMaterials.ToList();
 
                 materials.Remove(outlineMaskMaterial);
                 materials.Remove(outlineFillMaterial);
+                materials.Remove(whiteMaterial); // добавлено удаление whiteMaterial
 
                 renderer.materials = materials.ToArray();
             }
@@ -174,21 +195,19 @@ namespace T34
 
         void OnDestroy()
         {
-
             // Destroy material instances
             Destroy(outlineMaskMaterial);
             Destroy(outlineFillMaterial);
+            Destroy(whiteMaterial); // добавлено уничтожение whiteMaterial
         }
 
         void Bake()
         {
-
             // Generate smooth normals for each mesh
             var bakedMeshes = new HashSet<Mesh>();
 
             foreach (var meshFilter in GetComponentsInChildren<MeshFilter>())
             {
-
                 // Skip duplicates
                 if (!bakedMeshes.Add(meshFilter.sharedMesh))
                 {
@@ -205,11 +224,9 @@ namespace T34
 
         void LoadSmoothNormals()
         {
-
             // Retrieve or generate smooth normals
             foreach (var meshFilter in GetComponentsInChildren<MeshFilter>())
             {
-
                 // Skip if smooth normals have already been adopted
                 if (!registeredMeshes.Add(meshFilter.sharedMesh))
                 {
@@ -235,7 +252,6 @@ namespace T34
             // Clear UV3 on skinned mesh renderers
             foreach (var skinnedMeshRenderer in GetComponentsInChildren<SkinnedMeshRenderer>())
             {
-
                 // Skip if UV3 has already been reset
                 if (!registeredMeshes.Add(skinnedMeshRenderer.sharedMesh))
                 {
@@ -252,7 +268,6 @@ namespace T34
 
         List<Vector3> SmoothNormals(Mesh mesh)
         {
-
             // Group vertices by location
             var groups = mesh.vertices.Select((vertex, index) => new KeyValuePair<Vector3, int>(vertex, index)).GroupBy(pair => pair.Key);
 
@@ -262,7 +277,6 @@ namespace T34
             // Average normals for grouped vertices
             foreach (var group in groups)
             {
-
                 // Skip single vertices
                 if (group.Count() == 1)
                 {
@@ -291,7 +305,6 @@ namespace T34
 
         void CombineSubmeshes(Mesh mesh, Material[] materials)
         {
-
             // Skip meshes with a single submesh
             if (mesh.subMeshCount == 1)
             {
@@ -311,9 +324,12 @@ namespace T34
 
         void UpdateMaterialProperties()
         {
-
             // Apply properties according to mode
             outlineFillMaterial.SetColor("_OutlineColor", outlineColor);
+
+            // Update whiteMaterial transparency based on OutlineWidth
+            float alpha = Mathf.Clamp01(OutlineWidth / alphaTransperency); // Assuming max OutlineWidth is 10 for full transparency
+            whiteMaterial.color = new Color(whiteMaterial.color.r, whiteMaterial.color.g, whiteMaterial.color.b, alpha);
 
             switch (outlineMode)
             {

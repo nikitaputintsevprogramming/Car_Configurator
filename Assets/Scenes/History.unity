@@ -40403,6 +40403,7 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  alphaTransperency: 0
 --- !u!114 &7319699207924075972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41194,6 +41195,7 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  alphaTransperency: 30
 --- !u!114 &7436489060163360717
 MonoBehaviour:
   m_ObjectHideFlags: 0
