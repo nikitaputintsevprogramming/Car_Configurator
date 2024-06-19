@@ -1125,13 +1125,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1873799387}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.57, z: -6.644}
+  m_LocalRotation: {x: 0.122159064, y: 0.69991183, z: -0.12341334, w: 0.6927985}
+  m_LocalPosition: {x: -9.396436, y: 3.4202013, z: 0.0959881}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!222 &1873799393
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1316,7 +1316,7 @@ MonoBehaviour:
   yMinLimit: 20
   yMaxLimit: 80
   distanceMin: 5
-  distanceMax: 15
+  distanceMax: 10
   smoothTime: 0.2
   zoomSpeed: 0.2
 --- !u!114 &1948580953
