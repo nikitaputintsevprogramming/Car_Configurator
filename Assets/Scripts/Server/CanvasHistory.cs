@@ -31,12 +31,11 @@ namespace T34
         public override void OnNetworkSpawn()
         {
             TextureChangeOn("Textures/Run/RunScreen");
-            ChangeTransperentyRpc();
+            ChangeTransperentyServerRpc(0f);
         }
         public void TextureChangeOn(string message)
         {
-            Debug.Log("Œ ");
-            Debug.Log($"Received notification: {message}");
+            Debug.Log($"TextureChangeOn: {message}");
             ChangeSpriteEvent?.Invoke(message);
             ChangeSpriteRpc(
                 new MyStruct
@@ -70,18 +69,34 @@ namespace T34
         }
 
         [Rpc(SendTo.Server)]
-        void ChangeTransperentyRpc()
+        public void ChangeTransperentyServerRpc(float trans)
         {
-            var imageComponent = GetComponent<Image>();
+            var imageComponent = GetComponentInChildren<Image>();
             if (imageComponent == null)
             {
                 Debug.LogWarning("Image component not found!");
                 return;
             }
             Color newColor = imageComponent.color;
-            newColor.a = 0;
+            newColor.a = trans;
             imageComponent.color = newColor;
         }
+
+        [Rpc(SendTo.NotServer)]
+        public void ChangeTransperentyClientRpc(float trans)
+        {
+            var imageComponent = GetComponentInChildren<Image>();
+            if (imageComponent == null)
+            {
+                Debug.LogWarning("Image component not found!");
+                return;
+            }
+            Color newColor = imageComponent.color;
+            newColor.a = trans;
+            imageComponent.color = newColor;
+        }
+
+        //void EnableDisableHistoryClient() => ChangeTransperentyRpc();
 
         Sprite CreateSprite(string spriteId)
         {

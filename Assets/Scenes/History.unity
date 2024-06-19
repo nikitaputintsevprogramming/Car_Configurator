@@ -541,7 +541,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1039646181}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1791508941}
+        m_TargetAssemblyTypeName: T34.CanvasHistory, Assembly-CSharp
+        m_MethodName: ChangeTransperentyClientRpc
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1039646181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40403,7 +40415,7 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
-  alphaTransperency: 0
+  alphaTransperency: 30
 --- !u!114 &7319699207924075972
 MonoBehaviour:
   m_ObjectHideFlags: 0
