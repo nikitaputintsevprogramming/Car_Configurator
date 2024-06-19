@@ -7,6 +7,10 @@ namespace T34
 {
     public class PopUpOutline : CanvasControl
     {
+        [SerializeField] private float _dist;
+        [SerializeField] private float _minVal;
+        [SerializeField] private float _maxVal;
+
         public override void OnDrag(PointerEventData eventData)
         {
             // Получаем все объекты с компонентом PopUp, которые реализуют интерфейс IOutlinear
@@ -22,7 +26,7 @@ namespace T34
                     // Расстояние от камеры до объекта
                     float distance = Vector3.Distance(currentPosition, popUpObject.transform.position);
                     // Вычисляем значение outline в зависимости от расстояния
-                    float outlineValue = Mathf.Lerp(10, 0, distance / 5);
+                    float outlineValue = Mathf.Lerp(_maxVal, _minVal, distance / _dist);
                     // Устанавливаем значение outline (при условии, что SetOutline принимает float)
                     outlinearObject.SetOutline(outlineValue);
                 }

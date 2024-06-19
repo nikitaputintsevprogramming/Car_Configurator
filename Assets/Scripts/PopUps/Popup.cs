@@ -27,10 +27,11 @@ namespace T34
 
         void Lightning(float intensity)
         {
-            _outline = GetComponent<Outline>();
-            _outline.OutlineMode = Outline.Mode.OutlineAll;
-            _outline.OutlineColor = Color.white;
-            _outline.OutlineWidth = intensity;
+            //_outline = GetComponent<Outline>();
+            //_outline.OutlineMode = Outline.Mode.OutlineAll;
+            //_outline.OutlineColor = Color.white;
+            //_outline.OutlineWidth = intensity;
+            Camera.main.GetComponent<OutlineEffect>().lineIntensity = intensity;
         }
 
         private void OnMouseDown()
