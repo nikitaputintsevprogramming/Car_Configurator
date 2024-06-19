@@ -704,6 +704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 805ee2fbe04030d41a599e0aff934c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanvasControlObg: {fileID: 340242075}
 --- !u!1 &1267868244
 GameObject:
   m_ObjectHideFlags: 0
@@ -40468,7 +40469,7 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
-  alphaTransperency: 30
+  alphaTransperency: 10
 --- !u!114 &7319699207924075972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41260,7 +41261,7 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
-  alphaTransperency: 30
+  alphaTransperency: 15
 --- !u!114 &7436489060163360717
 MonoBehaviour:
   m_ObjectHideFlags: 0
