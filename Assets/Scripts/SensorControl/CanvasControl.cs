@@ -8,8 +8,6 @@ using UnityEngine.EventSystems;
 
 namespace T34
 { 
-    
-
     public class CanvasControl : NetworkBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         private ITextureChangable _textureChangable;
@@ -27,18 +25,18 @@ namespace T34
 
         public void OnPointerClick(PointerEventData data)
         {
-            if (_imageChangedOnStart)
-                return;
-            
-            _textureChangable?.TextureChangeOn("Textures/HistoryMode/Cabine");
-            //_textureChangable.TextureChangeOn("Textures/HistoryMode/Cabine");
-            _imageChangedOnStart = true; // Set the flag to true after the image is changed
+
 
         }
 
         public void OnBeginDrag(PointerEventData data)
         {
-            
+            if (_imageChangedOnStart)
+                return;
+
+            _textureChangable?.TextureChangeOn("Textures/HistoryMode/Cabine");
+            //_textureChangable.TextureChangeOn("Textures/HistoryMode/Cabine");
+            _imageChangedOnStart = true; // Set the flag to true after the image is changed
         }
 
         public virtual void OnDrag(PointerEventData data)
