@@ -14,7 +14,7 @@ namespace T34
     {
         private ITextureChangable _textureChangable;
         //private IOutlinear _outlinear;
-        private int _imageChangedOnStart;
+        private bool _imageChangedOnStart;
 
         private void Awake()
         {
@@ -27,13 +27,12 @@ namespace T34
 
         public void OnPointerClick(PointerEventData data)
         {
-            print(_imageChangedOnStart);
-            if (_imageChangedOnStart >=2)
+            if (_imageChangedOnStart)
                 return;
-            _imageChangedOnStart++;
+            
             _textureChangable?.TextureChangeOn("Textures/HistoryMode/Cabine");
             //_textureChangable.TextureChangeOn("Textures/HistoryMode/Cabine");
-            //_imageChangedOnStart = true; // Set the flag to true after the image is changed
+            _imageChangedOnStart = true; // Set the flag to true after the image is changed
 
         }
 

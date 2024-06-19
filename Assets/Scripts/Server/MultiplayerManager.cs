@@ -5,8 +5,15 @@ namespace T34
 {
     public class MultiplayerManager : MonoBehaviour
     {
+        [SerializeField] private GameObject CanvasControlObg;
+
         private const float ButtonWidth = 1000f;
         private const float ButtonHeight = 500f;
+
+        private void Start()
+        {
+            CanvasControlObg.SetActive(false);
+        }
 
         void OnGUI()
         {
@@ -24,6 +31,7 @@ namespace T34
             else
             {
                 StatusLabels();
+                CanvasControlObg.SetActive(true);
                 //SubmitNewPosition();
             }
 
