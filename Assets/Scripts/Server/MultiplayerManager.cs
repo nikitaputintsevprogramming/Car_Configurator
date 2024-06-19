@@ -12,7 +12,7 @@ namespace T34
 
         private void Start()
         {
-            CanvasControlObg.SetActive(false);
+            if (CanvasControlObg.activeInHierarchy) { CanvasControlObg.SetActive(false); }
         }
 
         void OnGUI()
