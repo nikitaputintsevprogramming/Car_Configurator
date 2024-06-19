@@ -8,6 +8,7 @@ namespace T34
         [SerializeField] private PopupData popUpData;
 
         private Outline _outline;
+        private Material _material;
 
         //private void Awake()
         //{
@@ -27,11 +28,10 @@ namespace T34
 
         void Lightning(float intensity)
         {
-            //_outline = GetComponent<Outline>();
-            //_outline.OutlineMode = Outline.Mode.OutlineAll;
-            //_outline.OutlineColor = Color.white;
-            //_outline.OutlineWidth = intensity;
-            Camera.main.GetComponent<OutlineEffect>().lineIntensity = intensity;
+            _outline = GetComponent<Outline>();
+            _outline.OutlineMode = Outline.Mode.OutlineAll;
+            _outline.OutlineColor = Color.white;
+            _outline.OutlineWidth = intensity;
         }
 
         private void OnMouseDown()
