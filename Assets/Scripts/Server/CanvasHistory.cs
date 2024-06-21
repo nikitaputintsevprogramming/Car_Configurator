@@ -107,15 +107,5 @@ namespace T34
             }
             return null;
         }
-
-        public void ActionEnable()
-        {
-            ChangeTransperentyServerRpc(1);
-            ChangeTransperentyClientRpc(0);
-
-            Transform camTransform = Camera.main.transform;
-            camTransform.position = new Vector3(0, 3.5f, -5.5f);
-            camTransform.rotation = Quaternion.identity;
-        }
     }
 }
