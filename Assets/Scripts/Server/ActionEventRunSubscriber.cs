@@ -4,7 +4,7 @@ using System;
 
 namespace T34
 {
-    public class ActionEventSubscriber : MonoBehaviour
+    public class ActionEventRunSubscriber: MonoBehaviour
     {
         private void Start()
         {
@@ -17,7 +17,7 @@ namespace T34
             Debug.Log("Action!");
             CanvasHistory canvasControl = FindObjectOfType<CanvasHistory>();
             canvasControl.ChangeTransperentyServerRpc(1);
-            canvasControl.ChangeTransperentyClientRpc(0);
+            canvasControl.SetStructWithSpriteChangeClient("Textures/ActionMode/aim");
 
             Transform camTransform = Camera.main.transform;
             camTransform.position = new Vector3(0, 3.5f, -5.5f);

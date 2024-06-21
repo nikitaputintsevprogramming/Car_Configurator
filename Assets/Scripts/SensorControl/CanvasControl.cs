@@ -22,7 +22,6 @@ namespace T34
             _textureChangable = FindObjectOfType<CanvasHistory>();
             //_outlinear = FindObjectOfType<PopUp>();
             if (_textureChangable == null) Debug.LogError("CanvasHistory component not found in the scene!");
-            //if (_outlinear == null) Debug.LogError("PopUp component not found in the scene!");
         }
 
         public void OnPointerClick(PointerEventData data)
@@ -36,9 +35,8 @@ namespace T34
             if (_imageChangedOnStart)
                 return;
 
-            _textureChangable?.TextureChangeOn("Textures/HistoryMode/Cabine");
-            //_textureChangable.TextureChangeOn("Textures/HistoryMode/Cabine");
-            _imageChangedOnStart = true; // Set the flag to true after the image is changed
+            //_textureChangable?.SetStructWithSpriteChangeClient("Textures/HistoryMode/Cabine");
+            _imageChangedOnStart = true;
         }
 
         public virtual void OnDrag(PointerEventData data)

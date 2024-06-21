@@ -8,10 +8,6 @@ namespace T34
 {
     public class CanvasHistory : NetworkBehaviour, ITextureChangable
     {
-        //public delegate void AccountHandler(string message);
-        //public event AccountHandler ChangeSpriteEvent;
-        
-
         struct MyStruct : INetworkSerializable
         {
             public Vector3 Position;
@@ -29,17 +25,18 @@ namespace T34
             }
         }
 
-
         public override void OnNetworkSpawn()
         {
-            TextureChangeOn("Textures/Run/RunScreen");
+            //SetStructWithSpriteChangeClient("Textures/Run/RunScreen");
             ChangeTransperentyServerRpc(0f);
         }
-        public void TextureChangeOn(string message)
+
+        //--------------------- Texture ------------------
+        // Client
+        public void SetStructWithSpriteChangeClient(string message)
         {
             Debug.Log($"TextureChangeOn: {message}");
-            //ChangeSpriteEvent?.Invoke(message);
-            ChangeSpriteRpc(
+            ChangeSpriteClientRpc(
                 new MyStruct
                 {
                     Position = transform.position,
@@ -50,7 +47,7 @@ namespace T34
         }
 
         [Rpc(SendTo.NotServer)]
-        void ChangeSpriteRpc(MyStruct myStruct)
+        void ChangeSpriteClientRpc(MyStruct myStruct)
         {
             transform.position = myStruct.Position;
 
@@ -69,7 +66,42 @@ namespace T34
                 GetComponent<Image>().color = newColor;
             }
         }
+        // Server
+        public void SetStructWithSpriteChangeServer(string message)
+        {
+            Debug.Log($"TextureChangeOn: {message}");
+            ChangeSpriteServerRpc(
+                new MyStruct
+                {
+                    Position = transform.position,
+                    Rotation = transform.rotation,
+                    SpriteId = message,
+                    transpServerHistoryImage = 1
+                }); // Client -> Server
+        }
 
+        [Rpc(SendTo.NotServer)]
+        void ChangeSpriteServerRpc(MyStruct myStruct)
+        {
+            transform.position = myStruct.Position;
+
+            Sprite receivedSprite = CreateSprite(myStruct.SpriteId);
+            if (receivedSprite != null)
+            {
+                GetComponent<Image>().sprite = receivedSprite;
+                var imageComponent = GetComponent<Image>();
+                if (imageComponent == null)
+                {
+                    Debug.LogWarning("Image component not found!");
+                    return;
+                }
+                Color newColor = GetComponent<Image>().color;
+                newColor.a = myStruct.transpServerHistoryImage;
+                GetComponent<Image>().color = newColor;
+            }
+        }
+        //------------------------------------------------------
+        //------------------------ Transperenty ----------------
         [Rpc(SendTo.Server)]
         public void ChangeTransperentyServerRpc(float trans)
         {
