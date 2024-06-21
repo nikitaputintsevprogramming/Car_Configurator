@@ -8,8 +8,9 @@ namespace T34
 {
     public class CanvasHistory : NetworkBehaviour, ITextureChangable
     {
-        public delegate void AccountHandler(string message);
+        //public delegate void AccountHandler(string message);
         //public event AccountHandler ChangeSpriteEvent;
+        
 
         struct MyStruct : INetworkSerializable
         {
@@ -27,6 +28,7 @@ namespace T34
                 serializer.SerializeValue(ref transpServerHistoryImage);
             }
         }
+
 
         public override void OnNetworkSpawn()
         {

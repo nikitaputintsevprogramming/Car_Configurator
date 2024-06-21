@@ -14,6 +14,8 @@ namespace T34
         //private IOutlinear _outlinear;
         private bool _imageChangedOnStart;
 
+
+
         private void Awake()
         {
             // Находим класс релизующий интерфейс
