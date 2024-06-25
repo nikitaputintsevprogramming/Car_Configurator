@@ -11,7 +11,7 @@ namespace T34
 
         public void SetOutline(float intensity)
         {
-            Debug.Log("SetOutline on " + intensity);
+            //Debug.Log("SetOutline on " + intensity);
             Lightning(intensity);
         }
 

@@ -14,7 +14,9 @@ namespace T34
         private ITextureChangable _textureChangable;
         private bool _imageChangedOnStart;
 
-        public event EventHandler OnActionTouch;
+        public event EventHandler OnActionPointerClick;
+        public event EventHandler OnActionBeginDrag;
+        public event EventHandler OnActionOnDrag;
 
         private void Awake()
         {
@@ -25,12 +27,14 @@ namespace T34
 
         public virtual void OnPointerClick(PointerEventData data)
         {
-            OnActionTouch?.Invoke(this, EventArgs.Empty);
+            OnActionPointerClick?.Invoke(this, EventArgs.Empty);
+           
         }
 
         public virtual void OnBeginDrag(PointerEventData data)
         {
-            OnActionTouch?.Invoke(this, EventArgs.Empty);
+            OnActionBeginDrag?.Invoke(this, EventArgs.Empty);
+            Debug.Log("OnActionBeginDrag");
 
             if (_imageChangedOnStart)
                 return;
@@ -39,7 +43,7 @@ namespace T34
 
         public virtual void OnDrag(PointerEventData data)
         {
-  
+            OnActionOnDrag?.Invoke(this, EventArgs.Empty);
         }
 
         public virtual void OnEndDrag(PointerEventData data)

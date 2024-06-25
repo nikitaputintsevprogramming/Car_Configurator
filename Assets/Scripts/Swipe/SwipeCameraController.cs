@@ -32,7 +32,7 @@ namespace T34
         private void OnEnable()
         {
             CanvasControl _canvasControl = FindObjectOfType<CanvasControl>();
-            _canvasControl.OnActionTouch += ActionPointerClick;
+            _canvasControl.OnActionPointerClick += ActionPointerClick;
         }
 
         private void Start()
@@ -89,7 +89,8 @@ namespace T34
 
         public override void OnDrag(PointerEventData eventData)
         {
-            
+            if (Input.touchCount > 2)
+                return;
             angleX -= eventData.delta.x * Input.touchCount * _speed * Time.deltaTime;
             angleY = Mathf.Clamp(angleY -= eventData.delta.y * Input.touchCount * _speed * Time.deltaTime, -89, 89);
             //radius = Mathf.Clamp(radius -= Input.mouseScrollDelta.y, 1, 10);

@@ -20,7 +20,7 @@ namespace T34
         private void OnEnable()
         {
             CanvasControl _canvasControl = FindObjectOfType<CanvasControl>();
-            _canvasControl.OnActionTouch += ActionPointerClick;
+            _canvasControl.OnActionPointerClick += ActionPointerClick;
         }
 
         private void Update()
