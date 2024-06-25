@@ -16,12 +16,11 @@ namespace T34
         [SerializeField] private float _reserveTime;
 
         public event EventHandler OnActionTimerEnds;
-        [SerializeField] private CanvasControl _canvasControl;
 
         private void OnEnable()
         {
-            _canvasControl = FindObjectOfType<CanvasControl>();
-            _canvasControl.OnActionPointerClick += ActionPointerClick;
+            CanvasControl _canvasControl = FindObjectOfType<CanvasControl>();
+            _canvasControl.OnActionTouch += ActionPointerClick;
         }
 
         private void Update()

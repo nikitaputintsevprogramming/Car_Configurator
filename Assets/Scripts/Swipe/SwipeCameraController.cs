@@ -28,6 +28,12 @@ namespace T34
         [SerializeField] private float radius = 10;
         [SerializeField] private float degreesPerSecond = 30;
 
+        private void OnEnable()
+        {
+            CanvasControl _canvasControl = FindObjectOfType<CanvasControl>();
+            _canvasControl.OnActionTouch += ActionPointerClick;
+        }
+
         private void Start()
         {
             _presentation = true;
@@ -35,14 +41,28 @@ namespace T34
             TimerDetector timerDetector = FindObjectOfType<TimerDetector>();
             timerDetector.OnActionTimerEnds += ActionTimerEnds;
 
+            CameraSetToStartPos();
+        }
+
+        private void CameraSetToStartPos()
+        {
+            //_camera.transform.position = Vector3.Lerp(_camera.transform.position, _camStartPos, _speed * Time.deltaTime);
             _camera.transform.position = _camStartPos;
             _camera.transform.LookAt(_target.position);
         }
 
         private void ActionTimerEnds(object sender, EventArgs e)
         {
+            if (_presentation) return;
+            CameraSetToStartPos();
+
             _presentation = true;
             Debug.Log("Режим презентации включен");
+        }
+
+        private void ActionPointerClick(object sender, EventArgs e)
+        {
+            _presentation = false;
         }
 
         private void FixedUpdate()
@@ -114,12 +134,6 @@ namespace T34
                 Destroy(_tracks[i]);
                 _tracks.RemoveAt(i);
             }
-        }
-
-        private void KeybMove()
-        {
-            v = Input.GetAxis("Vertical");
-            h = Input.GetAxis("Horizontal");
         }
     }
 }
