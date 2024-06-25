@@ -9,16 +9,6 @@ namespace T34
 
         private Outline _outline;
 
-        //private void Awake()
-        //{
-        //    // Находим класс релизующий интерфейс
-        //    swipeCameraController = FindObjectOfType<SwipeCameraController>();
-        //    if (swipeCameraController == null)
-        //    {
-        //        Debug.LogError("CanvasHistory component not found in the scene!");
-        //    }
-        //}
-
         public void SetOutline(float intensity)
         {
             Debug.Log("SetOutline on " + intensity);

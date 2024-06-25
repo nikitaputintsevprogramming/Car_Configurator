@@ -18,8 +18,9 @@ namespace T34
         [SerializeField] private Vector3 _camStartPos;
         [SerializeField] private float _presentSpeed;
 
-        private float v;
-        private float h;
+        [SerializeField] private float angleX;
+        [SerializeField] private float angleY;
+        [SerializeField] private bool invertVector;
 
         [SerializeField] List<GameObject> _tracks;
         DefaultControls.Resources knob;
@@ -88,27 +89,30 @@ namespace T34
 
         public override void OnDrag(PointerEventData eventData)
         {
-            Vector3 _moveTo = new Vector3(h * _speed * Time.deltaTime, 0, 0); //v * _speed * Time.deltaTime)
-            Vector3 _rotTo = new Vector3(0, h * 100f * Time.fixedDeltaTime, 0);
-            Vector3 _leanTo = new Vector3(-v * _speed * Time.deltaTime, 0, 0);
 
-            v = eventData.delta.y;
-            h = eventData.delta.x;
+            if (Input.touchCount >= 1)
+            {
+                angleX -= eventData.delta.x * _speed * Time.deltaTime;
+                angleY = Mathf.Clamp(angleY -= eventData.delta.y * _speed * Time.deltaTime, -89, 89);
+                //radius = Mathf.Clamp(radius -= Input.mouseScrollDelta.y, 1, 10);
 
-            //if (Input.touchCount >= 2)
-            //{
-            //_camera.transform.Rotate(Vector3.up, -h * 10f * Time.deltaTime, Space.World);
-            //_camera.transform.LookAt(_target);
-            //_camera.transform.Rotate(_leanTo, Space.Self);
-            //}
-            //else
-            //{
+                //if (angleX > 360)
+                //{
+                //    angleX -= 360;
+                //}
+                //else if (angleX < 0)
+                //{
+                //    angleX += 360;
+                //}
 
-            //}
+                Vector3 orbit = Vector3.forward * radius;
+                orbit = Quaternion.Euler(invertVector? angleY:-angleY, invertVector? angleX:-angleX, 0) * orbit;
 
-            _camera.transform.RotateAround(_target.position, Vector3.up, h * _speed * Time.deltaTime);
-            _camera.transform.RotateAround(_target.position, Vector3.right, v * _speed * Time.deltaTime);
-            
+                _camera.transform.position = _target.transform.position + orbit;
+                _camera.transform.LookAt(_target.transform.position);
+
+            }
+
             List<Touch> _touches = new List<Touch>();
             _touches.Clear();
             _touches = new List<Touch>(Input.touches);
@@ -126,9 +130,6 @@ namespace T34
 
         public override void OnEndDrag(PointerEventData eventData)
         {
-            v = 0;
-            h = 0;
-
             for (int i = _tracks.Count - 1; i >= 0; i--)
             {
                 Destroy(_tracks[i]);
