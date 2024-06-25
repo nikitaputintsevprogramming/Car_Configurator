@@ -541,19 +541,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1039646181}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1791508941}
-        m_TargetAssemblyTypeName: T34.CanvasHistory, Assembly-CSharp
-        m_MethodName: ActionEnable
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1039646181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1399,7 +1387,6 @@ GameObject:
   - component: {fileID: 1948580947}
   - component: {fileID: 1948580950}
   - component: {fileID: 1948580949}
-  - component: {fileID: 1948580951}
   - component: {fileID: 1948580948}
   - component: {fileID: 1948580952}
   - component: {fileID: 1948580953}
@@ -1480,27 +1467,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948580946}
   m_CullTransparentMesh: 1
---- !u!114 &1948580951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1948580946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2776661434
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &1948580952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1519,6 +1485,9 @@ MonoBehaviour:
   _presentation: 1
   _camStartPos: {x: 0, y: 3.5, z: -6}
   _presentSpeed: 20
+  angleX: 0
+  angleY: 0
+  invertVector: 0
   _tracks: []
   angle: 0
   radius: 10

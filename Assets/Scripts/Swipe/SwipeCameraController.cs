@@ -89,29 +89,25 @@ namespace T34
 
         public override void OnDrag(PointerEventData eventData)
         {
+            
+            angleX -= eventData.delta.x * Input.touchCount * _speed * Time.deltaTime;
+            angleY = Mathf.Clamp(angleY -= eventData.delta.y * Input.touchCount * _speed * Time.deltaTime, -89, 89);
+            //radius = Mathf.Clamp(radius -= Input.mouseScrollDelta.y, 1, 10);
 
-            if (Input.touchCount >= 1)
-            {
-                angleX -= eventData.delta.x * _speed * Time.deltaTime;
-                angleY = Mathf.Clamp(angleY -= eventData.delta.y * _speed * Time.deltaTime, -89, 89);
-                //radius = Mathf.Clamp(radius -= Input.mouseScrollDelta.y, 1, 10);
+            //if (angleX > 360)
+            //{
+            //    angleX -= 360;
+            //}
+            //else if (angleX < 0)
+            //{
+            //    angleX += 360;
+            //}
 
-                //if (angleX > 360)
-                //{
-                //    angleX -= 360;
-                //}
-                //else if (angleX < 0)
-                //{
-                //    angleX += 360;
-                //}
+            Vector3 orbit = Vector3.forward * radius;
+            orbit = Quaternion.Euler(invertVector? angleY:-angleY, invertVector? angleX:-angleX, 0) * orbit;
 
-                Vector3 orbit = Vector3.forward * radius;
-                orbit = Quaternion.Euler(invertVector? angleY:-angleY, invertVector? angleX:-angleX, 0) * orbit;
-
-                _camera.transform.position = _target.transform.position + orbit;
-                _camera.transform.LookAt(_target.transform.position);
-
-            }
+            _camera.transform.position = _target.transform.position + orbit;
+            _camera.transform.LookAt(_target.transform.position);
 
             List<Touch> _touches = new List<Touch>();
             _touches.Clear();
@@ -121,8 +117,8 @@ namespace T34
             {
                 if (i < _tracks.Count)
                 {
-                    float pointX = Input.touches[i].position.x - transform.GetComponent<RectTransform>().sizeDelta.x / 2;
-                    float pointY = Input.touches[i].position.y - transform.GetComponent<RectTransform>().sizeDelta.y / 2;
+                    float pointX = Input.touches[i].position.x - transform.parent.GetComponent<RectTransform>().sizeDelta.x / 2;
+                    float pointY = Input.touches[i].position.y - transform.parent.GetComponent<RectTransform>().sizeDelta.y / 2;
                     _tracks[i].GetComponent<RectTransform>().localPosition = new Vector2(pointX, pointY);
                 }
             }
