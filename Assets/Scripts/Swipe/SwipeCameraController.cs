@@ -30,6 +30,8 @@ namespace T34
 
         private void Start()
         {
+            _presentation = true;
+
             TimerDetector timerDetector = FindObjectOfType<TimerDetector>();
             timerDetector.OnActionTimerEnds += ActionTimerEnds;
 

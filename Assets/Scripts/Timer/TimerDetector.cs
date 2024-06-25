@@ -16,14 +16,17 @@ namespace T34
         [SerializeField] private float _reserveTime;
 
         public event EventHandler OnActionTimerEnds;
+        [SerializeField] private CanvasControl _canvasControl;
+
+        private void OnEnable()
+        {
+            _canvasControl = FindObjectOfType<CanvasControl>();
+            _canvasControl.OnActionPointerClick += ActionPointerClick;
+        }
 
         private void Update()
         {
             Timer();
-            //if (_inputManager.CheckSensor())
-            //{
-            //    ResetTimer();
-            //}
         }
 
         public bool Timer()
@@ -41,6 +44,11 @@ namespace T34
         private void ResetTimer()
         {
             _reserveTime += _currTime;
+        }
+
+        private void ActionPointerClick(object sender, EventArgs e)
+        {
+            ResetTimer();
         }
     }
 }
