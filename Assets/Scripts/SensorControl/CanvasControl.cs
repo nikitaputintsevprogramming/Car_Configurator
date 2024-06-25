@@ -14,8 +14,6 @@ namespace T34
         //private IOutlinear _outlinear;
         private bool _imageChangedOnStart;
 
-
-
         private void Awake()
         {
             // Находим класс релизующий интерфейс
@@ -24,13 +22,13 @@ namespace T34
             if (_textureChangable == null) Debug.LogError("CanvasHistory component not found in the scene!");
         }
 
-        public void OnPointerClick(PointerEventData data)
+        public virtual void OnPointerClick(PointerEventData data)
         {
 
 
         }
 
-        public void OnBeginDrag(PointerEventData data)
+        public virtual void OnBeginDrag(PointerEventData data)
         {
             if (_imageChangedOnStart)
                 return;
@@ -44,7 +42,7 @@ namespace T34
   
         }
 
-        public void OnEndDrag(PointerEventData data)
+        public virtual void OnEndDrag(PointerEventData data)
         {
 
         }

@@ -859,6 +859,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1365347237}
+  - component: {fileID: 1365347238}
   m_Layer: 0
   m_Name: SceneController
   m_TagString: Untagged
@@ -881,6 +882,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1365347238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365347236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf2329823e754b34ba80275bfb3fc241, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _endTime: 120
+  _currTime: 0
+  _reserveTime: 0
 --- !u!1 &1456694586
 GameObject:
   m_ObjectHideFlags: 0
@@ -935,7 +951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1262,7 +1278,7 @@ Transform:
   m_GameObject: {fileID: 1873799387}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.53, z: -5.55}
+  m_LocalPosition: {x: 0, y: 3.5, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1497,16 +1513,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192d73d28cfc9a04e913ca0cbfc5834c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2775179124416331082}
+  _target: {fileID: 1673151057}
   _camera: {fileID: 1873799389}
-  sensitivity: 2
-  DesktopSpeedDelta: 50
-  yMinLimit: 20
-  yMaxLimit: 80
-  distanceMin: 5
-  distanceMax: 10
-  smoothTime: 0.2
-  zoomSpeed: 0.2
+  _speed: 2
+  _presentation: 1
+  _camStartPos: {x: 0, y: 3.5, z: -6}
+  _presentSpeed: 20
+  _tracks: []
+  angle: 0
+  radius: 10
+  degreesPerSecond: 30
 --- !u!114 &1948580953
 MonoBehaviour:
   m_ObjectHideFlags: 0
