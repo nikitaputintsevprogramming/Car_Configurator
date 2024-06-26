@@ -17,6 +17,7 @@ namespace T34
             labelData = GetComponent<LabelData>();
         }
 
+
         private void OnEnable()
         {
             LabelLookAt labelLookAt = FindObjectOfType<LabelLookAt>();
