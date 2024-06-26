@@ -9,6 +9,8 @@ namespace T34
 {
     public class LabelLookAt : MonoBehaviour
     {
+        public event EventHandler OnActionTouchLabel;
+
         // Установка пределов для прозрачности
         [SerializeField] private float minDistance = 5.0f; // Минимальное расстояние, при котором объект полностью непрозрачный
         [SerializeField] private float maxDistance = 6.0f; // Максимальное расстояние, при котором объект полностью прозрачный
@@ -21,6 +23,8 @@ namespace T34
         {
             CanvasControl canvasControl = FindObjectOfType<CanvasControl>();
             canvasControl.OnActionOnDrag += ActionEvents_BeginDrag;
+
+            OnActionTouchLabel += ActionTouchLabel;
         }
 
         private void ActionEvents_BeginDrag(object sender, EventArgs e)
@@ -45,9 +49,18 @@ namespace T34
             Debug.LogFormat("Дистанция: {0}, Значение прозрачности: {1}", distance, transparencyValue);
         }
 
+        private void ActionTouchLabel(object sender, EventArgs e)
+        {
+            Material mat = transform.GetComponent<Renderer>().material;
+            Color color = mat.color;
+            color.a = 0; // Преобразуем значение из 0-255 в 0-1
+            mat.color = color;
+        }
+
         private void OnMouseDown()
         {
             Debug.Log(gameObject.name);
+            OnActionTouchLabel?.Invoke(this, EventArgs.Empty);
         }
     }
 }
