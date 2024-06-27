@@ -11,12 +11,6 @@ namespace T34
 
         public void SetOutline(float intensity)
         {
-            //Debug.Log("SetOutline on " + intensity);
-            Lightning(intensity);
-        }
-
-        void Lightning(float intensity)
-        {
             _outline = GetComponent<Outline>();
             _outline.OutlineMode = Outline.Mode.OutlineAll;
             _outline.OutlineColor = Color.white;

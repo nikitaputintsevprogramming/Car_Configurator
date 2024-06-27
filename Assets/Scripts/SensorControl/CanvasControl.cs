@@ -28,7 +28,6 @@ namespace T34
         public virtual void OnPointerClick(PointerEventData data)
         {
             OnActionPointerClick?.Invoke(this, EventArgs.Empty);
-           
         }
 
         public virtual void OnBeginDrag(PointerEventData data)

@@ -71,7 +71,7 @@ namespace T34
             if (!_presentation)
                 return;
 
-            //_camera.transform.RotateAround(_target.position, Vector3.up, _presentSpeed * Time.deltaTime);
+            _camera.transform.RotateAround(_target.position, Vector3.up, _presentSpeed * Time.deltaTime);
         }
 
         public override void OnBeginDrag(PointerEventData eventData)
