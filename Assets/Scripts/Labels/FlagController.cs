@@ -16,8 +16,7 @@ namespace T34
 
         void Start()
         {
-            labelCanvas.SetActive(false);
-            titleText.gameObject.SetActive(false);
+            SetActiveFlag(false);
         }
         private void OnEnable()
         {
@@ -30,16 +29,21 @@ namespace T34
 
         private void ActionEvents_BeginDrag(object sender, EventArgs e)
         {
-            labelCanvas.SetActive(false);
-            titleText.gameObject.SetActive(false);
+            SetActiveFlag(false);
         }
 
         private void ActionTouchLabel(object sender, EventArgs e)
         {
-            labelCanvas.SetActive(true);
-            titleText.gameObject.SetActive(true);
+            SetActiveFlag(true);
+
             //Vector3 targetPos = labelCanvas.GetComponent<RectTransform>() - Camera.main.transform.position;
             labelCanvas.GetComponent<RectTransform>().LookAt(Camera.main.transform);
+        }
+
+        void SetActiveFlag(bool setOn)
+        {
+            labelCanvas.SetActive(setOn);
+            titleText.gameObject.SetActive(setOn);
         }
     }
 }
