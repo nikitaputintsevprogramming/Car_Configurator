@@ -48,7 +48,7 @@ namespace T34
         private void CameraSetToStartPos()
         {
             //_camera.transform.position = Vector3.Lerp(_camera.transform.position, _camStartPos, _speed * Time.deltaTime);
-            _camera.transform.position = _camStartPos;
+            //_camera.transform.position = _camStartPos;
             _camera.transform.LookAt(_target.position);
         }
 
@@ -71,7 +71,7 @@ namespace T34
             if (!_presentation)
                 return;
 
-            _camera.transform.RotateAround(_target.position, Vector3.up, _presentSpeed * Time.deltaTime);
+            //_camera.transform.RotateAround(_target.position, Vector3.up, _presentSpeed * Time.deltaTime);
         }
 
         public override void OnBeginDrag(PointerEventData eventData)

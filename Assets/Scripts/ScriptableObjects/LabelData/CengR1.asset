@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50939c9599174444ba47e65b6f0c00c, type: 3}
   m_Name: CengR1
   m_EditorClassIdentifier: 
-  cameraPos: {x: -0.864, y: 2.511, z: -3.51}
+  cameraPos: {x: -0.8759999, y: 2.93, z: -4.137}
+  cameraRot: {x: 0.1764003, y: 0.32089, z: -0.060961, w: 0.92854}
   labelIcon: {fileID: 0}

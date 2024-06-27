@@ -6,6 +6,7 @@ using UnityEngine;
 public class LabelData : ScriptableObject
 {
     [SerializeField] private Vector3 cameraPos;
+    [SerializeField] private Quaternion cameraRot;
     [SerializeField] private Sprite labelIcon;
 
     public Vector3 CameraPos
@@ -21,6 +22,14 @@ public class LabelData : ScriptableObject
         get
         {
             return labelIcon;
+        }
+    }
+
+    public Quaternion CameraRot
+    {
+        get
+        {
+            return cameraRot;
         }
     }
 }

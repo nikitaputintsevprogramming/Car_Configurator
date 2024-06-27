@@ -12,10 +12,10 @@ namespace T34
     {
         [SerializeField] private LabelData labelData;
 
-        private void Start()
-        {
-            labelData = GetComponent<LabelData>();
-        }
+        //private void Start()
+        //{
+        //    labelData = GetComponent<LabelData>();
+        //}
 
 
         private void OnEnable()
@@ -26,9 +26,9 @@ namespace T34
 
         private void ActionTouchLabel(object sender, EventArgs e)
         {
-
             Camera.main.transform.position = labelData.CameraPos; //new Vector3(-0.864f, 2.511f, -3.51f);
-            Camera.main.transform.LookAt(transform);
+            Camera.main.transform.rotation = labelData.CameraRot;
+            //Camera.main.transform.LookAt(transform);
         }
     }
 }
