@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System;
 
 namespace T34
 {
@@ -11,7 +12,13 @@ namespace T34
         [SerializeField] private float _minVal;
         [SerializeField] private float _maxVal;
 
-        public override void OnDrag(PointerEventData eventData)
+        private void OnEnable()
+        {
+            CanvasControl canvasControl = FindObjectOfType<CanvasControl>();
+            canvasControl.OnActionOnDrag += ActionOnDrag;
+        }
+
+        private void ActionOnDrag(object sender, EventArgs e)
         {
             // Получаем все объекты с компонентом PopUp, которые реализуют интерфейс IOutlinear
             PopUp[] popUpObjects = FindObjectsOfType<PopUp>();
