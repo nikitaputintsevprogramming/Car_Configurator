@@ -108,7 +108,7 @@ namespace T34
 
             // Use a transparent shader for whiteMaterial
             whiteMaterial = new Material(Shader.Find("Standard"));
-            whiteMaterial.SetFloat("_Mode", 3); // Transparent mode
+            whiteMaterial.SetFloat("_Mode", 2); // Fade mode
             whiteMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
             whiteMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
             whiteMaterial.SetInt("_ZWrite", 0);

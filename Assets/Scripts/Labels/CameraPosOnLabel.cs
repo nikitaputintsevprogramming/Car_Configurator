@@ -20,7 +20,7 @@ namespace T34
 
         private void OnEnable()
         {
-            Label labelLookAt = FindObjectOfType<Label>();
+            Popup labelLookAt = FindObjectOfType<Popup>();
             labelLookAt.OnActionTouchLabel += ActionTouchLabel;
         }
 
@@ -30,7 +30,7 @@ namespace T34
             Camera.main.transform.rotation = _cameraPos.transform.rotation;
             //Camera.main.transform.position = _labelData.CameraPos; //new Vector3(-0.864f, 2.511f, -3.51f);
             //Camera.main.transform.rotation = _labelData.CameraRot;
-            //Camera.main.transform.LookAt(transform);
+            Camera.main.transform.LookAt(transform);
         }
     }
 }

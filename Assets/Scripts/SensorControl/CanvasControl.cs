@@ -33,7 +33,6 @@ namespace T34
         public virtual void OnBeginDrag(PointerEventData data)
         {
             OnActionBeginDrag?.Invoke(this, EventArgs.Empty);
-            Debug.Log("OnActionBeginDrag");
 
             if (_imageChangedOnStart)
                 return;

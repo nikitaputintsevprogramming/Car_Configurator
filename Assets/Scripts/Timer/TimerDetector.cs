@@ -21,6 +21,7 @@ namespace T34
         {
             CanvasControl _canvasControl = FindObjectOfType<CanvasControl>();
             _canvasControl.OnActionPointerClick += ActionPointerClick;
+            _canvasControl.OnActionOnDrag += ActionOnDrag;
         }
 
         private void Update()
@@ -34,6 +35,7 @@ namespace T34
             if (_currTime >= _endTime)
             {
                 Debug.Log("Время таймера вышло");
+                ResetTimer();
                 OnActionTimerEnds?.Invoke(this, EventArgs.Empty);
                 return true;
             }
@@ -46,6 +48,11 @@ namespace T34
         }
 
         private void ActionPointerClick(object sender, EventArgs e)
+        {
+            ResetTimer();
+        }
+
+        private void ActionOnDrag(object sender, EventArgs e)
         {
             ResetTimer();
         }

@@ -17,7 +17,7 @@ namespace T34
             //CanvasControl canvasControl = FindObjectOfType<CanvasControl>();
             //canvasControl.OnActionOnDrag += ActionOnDrag;
 
-            Label labelLookAt = FindObjectOfType<Label>();
+            Popup labelLookAt = FindObjectOfType<Popup>();
             labelLookAt.OnActionTouchLabel += ActionTouchLabel;
         }
 
