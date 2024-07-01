@@ -20,7 +20,7 @@ namespace T34
         }
         private void OnEnable()
         {
-            LabelLookAt labelLookAt = FindObjectOfType<LabelLookAt>();
+            Label labelLookAt = FindObjectOfType<Label>();
             labelLookAt.OnActionTouchLabel += ActionTouchLabel;
             
             CanvasControl canvasControl = FindObjectOfType<CanvasControl>();

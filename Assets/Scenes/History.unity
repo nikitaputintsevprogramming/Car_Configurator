@@ -1306,7 +1306,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83012903e04a7bd44bf609fec1a5d5b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  labelData: {fileID: 11400000, guid: 2573faea76d8b644e97854733cd426e0, type: 2}
+  _labelData: {fileID: 11400000, guid: 2573faea76d8b644e97854733cd426e0, type: 2}
+  _cameraPos: {fileID: 1778366237}
 --- !u!114 &1455468958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1321,7 +1322,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   labelCanvas: {fileID: 1886449296}
   titleText: {fileID: 938177469}
-  descriptionText: {fileID: 0}
 --- !u!1 &1456694586
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,8 +1733,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1873799387}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.17640027, y: 0.3208923, z: -0.06096155, w: 0.92854446}
-  m_LocalPosition: {x: -0.876, y: 2.93, z: -4.137}
+  m_LocalRotation: {x: 0.17640029, y: 0.32089227, z: -0.060961537, w: 0.9285444}
+  m_LocalPosition: {x: -0.876, y: 2.9300005, z: -4.1370006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2053,16 +2053,13 @@ MonoBehaviour:
   _target: {fileID: 1673151057}
   _camera: {fileID: 1873799389}
   _speed: 2
-  _presentation: 1
-  _camStartPos: {x: 0, y: 3.5, z: -6}
-  _presentSpeed: 20
-  angleX: 0
-  angleY: 0
-  invertVector: 0
-  _tracks: []
   angle: 0
   radius: 7
   degreesPerSecond: 30
+  invertVector: 0
+  _presentation: 1
+  _camStartPos: {x: 0, y: 0, z: 0}
+  _presentSpeed: 20
 --- !u!114 &1948580953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2075,7 +2072,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4da21323b056aa54ca8d94c406d1487d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dist: 3
+  _dist: 5
   _minVal: 0
   _maxVal: 10
 --- !u!1 &2106540028
@@ -40967,7 +40964,6 @@ GameObject:
   - component: {fileID: 7319699207924075969}
   - component: {fileID: 7319699207924075970}
   - component: {fileID: 7319699207924075971}
-  - component: {fileID: 7319699207924075972}
   m_Layer: 0
   m_Name: FrontGun
   m_TagString: Untagged
@@ -41029,19 +41025,6 @@ MonoBehaviour:
   bakeKeys: []
   bakeValues: []
   alphaTransperency: 10
---- !u!114 &7319699207924075972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7319699207924075967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9422bfd0feab7c04cb41977e232769b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  popUpData: {fileID: 11400000, guid: 9e716b3adc6505244b40e7d101ea9d29, type: 2}
 --- !u!1 &7322835781461825652
 GameObject:
   m_ObjectHideFlags: 0

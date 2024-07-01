@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace T34
 {
-    public class PopUp : MonoBehaviour, IOutlinear
+    public class OutlineElementManaged : MonoBehaviour, IOutlinear
     {
         [SerializeField] private PopupData popUpData;
 
@@ -21,7 +21,7 @@ namespace T34
         {
             Debug.Log(popUpData.name);
             Debug.Log(popUpData.PopupName);
-            Debug.Log(popUpData.PopupDescription);
+            //Debug.Log(popUpData.PopupDescription);
             //Debug.Log(popUpData.PopupIcon.name);
         }
     }

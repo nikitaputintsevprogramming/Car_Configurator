@@ -10,24 +10,23 @@ namespace T34
     [RequireComponent(typeof(Image))]
     public class SwipeCameraController : CanvasControl
     {
+        [Header("Свойста управления камерой")]
         [SerializeField] private Transform _target;
         [SerializeField] private Camera _camera;
         [SerializeField] private float _speed;
-
-        [SerializeField] private bool _presentation;
-        [SerializeField] private Vector3 _camStartPos;
-        [SerializeField] private float _presentSpeed;
-
-        [SerializeField] private float angleX;
-        [SerializeField] private float angleY;
-        [SerializeField] private bool invertVector;
-
-        [SerializeField] List<GameObject> _tracks;
-        DefaultControls.Resources knob;
-
         [SerializeField] private float angle;
         [SerializeField] private float radius = 10;
         [SerializeField] private float degreesPerSecond = 30;
+        [SerializeField] private bool invertVector;
+        [SerializeField] private List<GameObject> _tracks;
+        private DefaultControls.Resources knob;
+        private float angleX;
+        private float angleY;
+
+        [Header("Режим презентации")]
+        [SerializeField] private bool _presentation;
+        [SerializeField] private Vector3 _camStartPos;
+        [SerializeField] private float _presentSpeed;
 
         private void OnEnable()
         {
@@ -76,6 +75,8 @@ namespace T34
 
         public override void OnBeginDrag(PointerEventData eventData)
         {
+            _presentation = false;
+
             var _track = new GameObject("trailStep", typeof(RectTransform), typeof(Image));
 
             _track.transform.SetParent(transform);
@@ -93,7 +94,7 @@ namespace T34
                 return;
             angleX -= eventData.delta.x * Input.touchCount * _speed * Time.deltaTime;
             angleY = Mathf.Clamp(angleY -= eventData.delta.y * Input.touchCount * _speed * Time.deltaTime, -89, 89);
-            //radius = Mathf.Clamp(radius -= Input.mouseScrollDelta.y, 1, 10);
+            radius = Mathf.Clamp(radius -= Input.mouseScrollDelta.y, 1, 10);
 
             //if (angleX > 360)
             //{

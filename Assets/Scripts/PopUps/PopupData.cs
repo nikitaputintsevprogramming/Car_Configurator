@@ -19,14 +19,6 @@ namespace T34
             }
         }
 
-        public string PopupDescription
-        {
-            get
-            {
-                return popupDescription;
-            }
-        }
-
         public Sprite PopupIcon
         {
             get

@@ -7,9 +7,11 @@ using UnityEngine.EventSystems;
 
 namespace T34
 {
-    public class LabelLookAt : MonoBehaviour
+    public class Label : MonoBehaviour, IOutlinear
     {
         public event EventHandler OnActionTouchLabel;
+
+        private Outline _outline;
 
         // ”становка пределов дл€ прозрачности
         [SerializeField] private float minDistance = 5.0f; // ћинимальное рассто€ние, при котором объект полностью непрозрачный
@@ -18,6 +20,13 @@ namespace T34
         // ”становка пределов дл€ прозрачности
         [SerializeField] private float minTransp = 0f; // ѕрозрачность при минимальном рассто€нии (0 = полностью прозрачный)
         [SerializeField] private float maxTransp = 255f; // ѕрозрачность при максимальном рассто€нии (255 = полностью непрозрачный)
+        public void SetOutline(float intensity)
+        {
+            _outline = GetComponent<Outline>();
+            _outline.OutlineMode = Outline.Mode.OutlineAll;
+            _outline.OutlineColor = Color.white;
+            _outline.OutlineWidth = intensity;
+        }
 
         private void OnEnable()
         {
