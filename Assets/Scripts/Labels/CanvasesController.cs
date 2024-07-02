@@ -7,16 +7,18 @@ using System;
 
 namespace T34
 {
-    public class FlagController : MonoBehaviour
+    public class CanvasesController : MonoBehaviour
     {
         //public Vector3 flagPosition; // Позиция флага
-        public GameObject labelCanvas; // Панель для отображения названия и описания 
-        public TMP_Text titleText; // Текст для названия
+        public GameObject flagCanvas; // Панель для отображения на хосте
+        public GameObject infoCanvas; // Панель для отображения на клиенте
+        public TMP_Text titleText;
         //public LineRenderer lineRenderer; // Линия для указания на панель
 
         void Start()
         {
             SetActiveFlag(false);
+            SetActiveInfo(false);
         }
         private void OnEnable()
         {
@@ -30,19 +32,27 @@ namespace T34
         private void ActionEvents_BeginDrag(object sender, EventArgs e)
         {
             SetActiveFlag(false);
+            SetActiveInfo(false);
         }
 
         private void ActionTouchLabel(object sender, EventArgs e)
         {
             SetActiveFlag(true);
+            SetActiveInfo(true);
 
             //Vector3 targetPos = labelCanvas.GetComponent<RectTransform>() - Camera.main.transform.position;
-            labelCanvas.GetComponent<RectTransform>().LookAt(Camera.main.transform);
+            flagCanvas.GetComponent<RectTransform>().LookAt(Camera.main.transform);
         }
 
         void SetActiveFlag(bool setOn)
         {
-            labelCanvas.SetActive(setOn);
+            flagCanvas.SetActive(setOn);
+            titleText.gameObject.SetActive(setOn);
+        }
+
+        void SetActiveInfo(bool setOn)
+        {
+            flagCanvas.SetActive(setOn);
             titleText.gameObject.SetActive(setOn);
         }
     }
